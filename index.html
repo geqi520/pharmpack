@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>药品追溯管理系统</title>
+		<style>
+				body{
+					margin: 0;
+					padding: 0;
+				}
+			.container{
+			width: 900px;
+			height: 100%;
+			margin: 0 auto;
+			background-color: skyblue;
+			}
+			.container_top{
+			 width: 100%;
+			 height: 120px;
+			}
+			.container_top a{
+				cursor: pointer;
+			}
+			.container_top img{
+				margin-left: 20px;
+				margin-top: 10px;
+			}
+			.container_body{
+				width:500px;
+				height:400px;
+				margin-left: 200px;
+				margin-top: 20px;
+				background-color: skyblue;
+				opacity: 0.8;
+			}
+			fieldset {
+				border: 1px solid #fff;
+				padding: 15px;
+			}
+			legend{
+				color: #fff;
+				font-size: 16px;
+				letter-spacing: 2px;
+			}
+			input {
+				outline: none
+			}
+			
+			input[type=text],input[type=password] {
+				border: 1px solid #ccc;
+				padding: .5rem .3rem;
+			}
+			
+			input[type=text]:focus,input[type=password]:focus{
+				border-color: #42b983;
+			}
+			.form_group {
+				margin: 10px;
+			}
+			
+			.form_group > label {
+				display: inline-block;
+				width: 10rem;
+				text-align: right;
+				letter-spacing: 1px;
+				color: #FFFFFF;
+			}
+			
+			.form_group > input{
+				display: inline-block;
+				height: 1.5rem;
+				line-height: 1.5rem;
+			}
+			.form_group >button {
+				outline: none;
+				padding: 10px 50px;
+				color: #fff;
+				border: 1px solid #BCBCBC;
+				border-radius: 3px;
+				background-color: #009A61;
+				cursor: pointer;
+			}
+		 .form_group > button:hover{
+				opacity: 0.8;
+			}
+			.container_footer{
+				width: 100%;
+				height: 100px;
+				text-align: center;
+			     border-top: 2px solid #fff;
+				 color: #FFFFFF;
+			}
+			
+		</style>
+		<script>
+			
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="container_top">
+				<a href="http://www.pppharmapack.com/" target="_blank"><img src="img/logo.png" alt="珐玛珈,pppharmapack,数粒包装线"></a>
+			</div>
+			<div class="container_body">
+				<fieldset>
+					<legend>药品追溯管理系统</legend>
+					<form class="form_group" method="post" action="php/checkLogin.php">
+					<div class="form_group">
+						<label>用户名：</label>
+						<input type="text" name="username" placeholder="请输入管理员账号"/>
+					</div>
+					<div class="form_group">
+						<label>密码：</label>
+						<input type="password" name="password" placeholder="请输入管理员密码/>
+					</div>
+					<div class="form_group">
+						<label></label>
+						<button type="submit" >登录</button>
+					</div>
+					</form>
+				</fieldset>
+			</div>
+			<div class="container_footer">
+				<p>有疑问请联系热线：400-998-5937 </p>
+			</div>
+		</div>
+	</body>
+</html>
+
