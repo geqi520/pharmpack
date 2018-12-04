@@ -3,9 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
-
-		<link rel="stylesheet" href="../js/layui/css/layui.css" />
-
+		<link rel="stylesheet" href="../js/layui/css/layui.css"/>
 	</head>
 	<body class="layui-layout-body">
 		<div class="layui-fluid">
@@ -13,22 +11,35 @@
 				<div class="layui-form-item">	
 				</div>
 				<div class="layui-form-item">	
-					<label class="layui-form-label">原始密码</label>
+					<label class="layui-form-label">全名</label>
 					<div class="layui-input-block">
-						<input name="id" class="layui-input" type="password" placeholder="" autocomplete="off"/>
+						<input name="id" class="layui-input" type="text" placeholder="100000" autocomplete="off"/>
 					</div>
 				</div>
 				<div class="layui-form-item">	
-					<label class="layui-form-label">新的密码</label>
+					<label class="layui-form-label">登录名</label>
 					<div class="layui-input-block">
-						<input name="id" class="layui-input" type="password" placeholder="" autocomplete="off"/>
+						<input name="login" class="layui-input" type="text" placeholder="心的远行" autocomplete="off"/>
+					</div>
+				</div>
+				<div class="layui-form-item">	
+					<label class="layui-form-label">密码</label>
+					<div class="layui-input-block">
+						<input name="password" class="layui-input" type="password" placeholder="" autocomplete="off"/>
 					</div>
 				</div>
 				<div class="layui-form-item">	
 					<label class="layui-form-label">确认密码</label>
 					<div class="layui-input-block">
-						<input name="id" class="layui-input" type="password" placeholder="" autocomplete="off"/>
+						<input name="password" class="layui-input" type="password" placeholder="" autocomplete="off"/>
 					</div>
+				</div>
+				<div class="layui-form-item">	
+					<label class="layui-form-label">权限</label>
+					<div class="layui-input-block">
+				    	<input type="radio" name="quanxian" value="可用" title="可用" checked />
+				    	<input type="radio" name="quanxian" value="不可用" title="不可用" />
+				    </div>
 				</div>
 				<div class="layui-form-item">
 				    <div class="layui-input-block">
@@ -38,7 +49,6 @@
 				</div>
 			</form>	
 		</div>
-
 		<script src="../js/layui/layui.js"></script>
 		<script>
 			layui.use(['element','layer','form'],function(){
