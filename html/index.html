@@ -3,8 +3,10 @@
 	<head>
 		<meta charset="utf-8" />
 		<title></title>
-		<link rel="stylesheet" href="./js/layui/css/layui.css" />
-		<link rel="stylesheet" href="css/index.css" />
+
+		<link rel="stylesheet" href="../js/layui/css/layui.css" />
+		<link rel="stylesheet" href="../css/index.css" />
+
 		<script>
 			//iframe高度自适应
 			function setIframeHeight(iframe) {
@@ -68,24 +70,19 @@
 							</dl>
 						</li>
 						<li class="layui-nav-item">
-							<a href="javascript:;" title="用户"><i class="layui-icon layui-icon-util"></i><cite>生产管理</cite></a>
+
+							<a href="javascript:;" title="用户"><i class="layui-icon layui-icon-user"></i><cite>用户</cite></a>
+
 							<dl class="layui-nav-child">
 								<dd><a href="javascript:;" lay-href="./user.html">角色管理</a></dd>
 							</dl>
 						</li>
 						<li class="layui-nav-item">
-							<a href="javascript:;" title="报告"><i class="layui-icon layui-icon-component"></i><cite>统计报告</cite></a>
+
+							<a href="javascript:;" title="设置"><i class="layui-icon layui-icon-set"></i><cite>设置</cite></a>
 							<dl class="layui-nav-child">
-								<dd><a href="javascript:;" lay-href="./report/taskcount.html">任务统计</a></dd>
-							</dl>
-						</li>
-						<li class="layui-nav-item">
-							<a href="javascript:;" title="设置"><i class="layui-icon layui-icon-set"></i><cite>系统管理</cite></a>
-							<dl class="layui-nav-child">
-								<dd><a href="javascript:;" lay-href="./changepassword.html">修改密码</a></dd>
-								<dd><a href="javascript:;" lay-href="./system/ug.html">用户管理</a></dd>
-								<dd><a href="javascript:;" lay-href="./system/system.html">不知道是啥</a></dd>
-								<dd><a href="javascript:;" lay-href="./system/systemlog.html">系统日志</a></dd>
+								<dd><a href="javascript:;" lay-href="./set.html">系统设置</a></dd>
+
 							</dl>
 						</li>
 					</ul>
@@ -111,7 +108,9 @@
 			<!--底部-->
 			<div class="layui-footer">©pharmapack </div>
 		</div>
-		<script src="./js/layui/layui.js"></script>
+
+		<script src="../js/layui/layui.js"></script>
+
 		<script>
 			layui.use(['element','layer'],function(){
 				var element = layui.element
