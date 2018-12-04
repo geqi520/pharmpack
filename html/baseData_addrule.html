@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>		
+		<link rel="stylesheet" href="../js/layui/css/layui.css" />
+	</head>
+	<body class="layui-layout-body">
+		<div class="layui-fluid">
+			<form class="layui-form">
+				<div class="layui-form-item">	
+					<label class="layui-form-label">编号</label>
+					<div class="layui-input-block">
+						<input name="code" id="code" class="layui-input" type="text" autocomplete="off"/>
+					</div>
+				</div>
+				<div class="layui-form-item">	
+					<label class="layui-form-label">名称</label>
+					<div class="layui-input-block">
+						<input name="rulename" id="rulename" class="layui-input" type="text" autocomplete="off"/>
+					</div>
+				</div>
+				<div class="layui-form-item">	
+					<label class="layui-form-label">GTIN</label>
+					<div class="layui-input-block">
+						<input name="GTIN" id="GTIN" class="layui-input" type="text" autocomplete="off"/>
+					</div>
+				</div>
+				<div class="layui-form-item">	
+					<label class="layui-form-label">等级</label>
+					<div class="layui-input-inline">
+				    	<select name="level" lay-filter="level">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+						</select>
+				    </div>
+				</div>
+				<div id="sel" class="layui-form-item layui-form-text">
+				    <label class="layui-form-label">比例</label>
+					<div class="layui-input-inline">
+						<input style="width:50px" name="ratio0" class="layui-input" type="text" autocomplete="off"/>
+					</div>
+				</div>
+				<div class="layui-form-item">
+				    <div class="layui-input-block">
+				    	<button class="layui-btn" lay-submit lay-filter="go">立即提交</button>
+				    	<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				    </div>
+				</div>
+			</form>	
+		</div>
+		<script src="../js/layui/layui.js"></script>
+		<script>
+			layui.use(['element','layer','form'],function(){
+				var element = layui.element
+				,layer = layui.layer
+				,form = layui.form
+				,$ = layui.jquery;
+				form.on('select(level)',function(data){
+					$("#sel").empty();
+					$('#sel').append('<label class="layui-form-label">比例</label>');
+					for(let i=0;i<data.value;i++){
+						let inp='<div class="layui-input-inline"><input name=ratio'+i+' style="width:50px" class="layui-input" type="text" autocomplete="off"/></div>';
+						let mid='<div class="layui-form-mid">：</div>';
+						$('#sel').append(inp);
+						if(i!=data.value-1)
+							$('#sel').append(mid);
+					}
+					form.render();
+				});
+				form.on('submit(go)',function(data){
+					$.ajax({
+						url:"../php/addPackingRule.php",
+						type:"POST",
+						data: "data="+JSON.stringify(data.field),
+						success: function(result){
+							if(result){
+								layer.msg("成功",{icon: 1,time: 1000});
+								var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+								setTimeout(function(){
+									parent.layer.close(index); //再执行关闭
+									parent.location.reload();
+								},1000);
+								
+							}
+							else{
+								layer.msg("失败",{icon: 2});
+								layer.closeAll();
+							}	
+						}
+					});
+					return false;
+				});
+			});
+		</script>		
+	</body>
+</html>
