@@ -3,7 +3,10 @@
 	<head>
 		<meta charset="utf-8">
 		<title></title>
+
+
 		<link rel="stylesheet" href="../js/layui/css/layui.css" />
+
 		<style>
 			.layui-admin-card-header{
 				padding: 25px;
@@ -34,12 +37,14 @@
       <th lay-data="{field:'Status', width:80, sort: true}">状态</th>
       <th lay-data="{field:'Remark', width:200, align:'center'}">描述</th>
 	  <th lay-data="{width:250, align:'center', toolbar: '#barDemo'}">操作</th>
+
     </tr>
   </thead>
 </table>
 				</div>
 			</div>
 		</div>
+
 		<script src="../js/jquery-3.3.1.min.js"></script>
 		<script src="../js/layui/layui.js"></script>
 		<script type="text/html" id="barDemo">
@@ -56,6 +61,7 @@
 				,table = layui.table
 				,$ = layui.jquery;
 				$('#baseData_newfir').on('click', function(){
+
 					layer.open({
 						type: 2,
 						title: '新建',
@@ -115,6 +121,7 @@
   });
 			});
 		
+
 		</script>
 	</body>
 </html>
