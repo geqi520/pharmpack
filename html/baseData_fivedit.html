@@ -1,9 +1,125 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8">
-		<title></title>
+		<meta charset="UTF-8">
+		<title>用户操作</title>
+		<link rel="stylesheet" href="../js/layui/css/layui.css"/>
 	</head>
-	<body>
+	<body class="layui-layout-body">
+		<div class="layui-fluid">
+			<form class="layui-form">
+				<div class="layui-form-item">
+					<input name="id" id="id" class="layui-input" type="hidden" autocomplete="off"/>	
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">代码：</label>
+						<div class="layui-input-block">
+							<input type="text" name="title" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">产品：</label>
+						<div class="layui-input-block">
+							<input type="text" name="title" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">GTIN：</label>
+						<div class="layui-input-block">
+							<input type="text" name="title" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">批准号：</label>
+						<div class="layui-input-block">
+							<input type="text" name="title" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">设备：</label>
+						<div class="layui-input-inline">
+							<select name="modules" lay-search="">
+								<option value="1">layer</option>
+								<option value="2">form</option>
+								<option value="3">layim</option>
+							</select>
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">EXP：</label>
+						<div class="layui-input-inline">
+							<select name="modules" lay-search="">
+								<option value="1">layer</option>
+								<option value="2">form</option>
+								<option value="3">layim</option>
+								<option value="4">element</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">重量：</label>
+						<div class="layui-input-block">
+							<input type="text" name="title" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">产品代码：</label>
+						<div class="layui-input-block">
+							<input type="text" name="title" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">药品验证号：</label>
+						<div class="layui-input-block">
+							<input type="text" name="title" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">打包单位：</label>
+						<div class="layui-input-block">
+							<input type="text" name="title" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">生产者：</label>
+						<div class="layui-input-block">
+							<input type="text" name="title" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">生产时间：</label>
+						<div class="layui-input-block">
+							<input type="text" name="title" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<script src="../js/layui/layui.js"></script>
+		<script>
+			layui.use(['element','layer','form'],function(){
+				var element = layui.element
+				,layer = layui.layer
+				,form = layui.form
+				,$ = layui.jquery;
+			})	
+		</script>		
 	</body>
 </html>

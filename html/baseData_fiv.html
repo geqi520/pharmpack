@@ -71,16 +71,16 @@
 		</form>
 		<div class="layui-card-body layui-admin-card-body">
 							 
-		<table class="layui-table" lay-data="{width: 1000, height:500, url:'', page:true, id:'idTest'}" lay-filter="demo">
+		<table class="layui-table" lay-data="{width: 1000, height:500, url:'../php/findData.php',where:{table:'ProductEntity'}, page:true, id:'idTest'}" lay-filter="demo">
 		  <thead>
 		    <tr>
-		      <th lay-data="{field:'productCode', width:110, sort: true, fixed: true}">生产代码</th>
-		      <th lay-data="{field:'productName', width:110}">生产名称</th>
+		      <th lay-data="{field:'Code', width:110, sort: true, fixed: true}">生产代码</th>
+		      <th lay-data="{field:'Name', width:110}">生产名称</th>
 		      <th lay-data="{field:'GTIN', width:80}">GTIN</th>
-		      <th lay-data="{field:'approvalNo', width:110}">可生产数</th>
-		      <th lay-data="{field:'spec', width:110}">重量说明</th>
-		      <th lay-data="{field:'commodityCode', width:110}">商品编码</th>
-		      <th lay-data="{field:'status', width:80}">状态</th>
+		      <th lay-data="{field:'AuthorizedNo', width:110}">批准号</th>
+		      <th lay-data="{field:'Spec', width:110}">重量</th>
+		      <th lay-data="{field:'PackUnit', width:110}">商品码</th>
+		      <th lay-data="{field:'Status', width:80}">状态</th>
 			  <th lay-data="{fixed: 'right', width:280, align:'center', toolbar: '#barDemo'}">操作</th>
 		    </tr>
 		  </thead>
@@ -89,7 +89,7 @@
 		<script src="../js/layui/layui.js"></script>
 		<script src="../js/jquery-3.3.1.min.js"></script>
 		<script type="text/html" id="barDemo">
-					<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+					<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">改变状态</a>
 		  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
 		  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 		</script>
@@ -111,48 +111,48 @@
 						});
 					});
 					table.on('tool(demo)', function(obj) {
-									var data = obj.data;
-									if (obj.event === 'detail') {
-										layer.msg('ID：' + data.id + ' 的查看操作');
-									} else if (obj.event === 'del') {
-										layer.confirm('真的删除行么', function(index) {
-											obj.del();
-											layer.close(index);
-										});
-									} else if (obj.event === 'edit') {
-										layer.open({
-											type: 2,
-											title: '编辑',
-											maxmin: true,
-											shadeClose: true, //点击遮罩关闭层
-											area: ['600px', '500px'],
-											content: 'baseData_fivedit.html'
-										});
+						var data = obj.data;
+						if (obj.event === 'detail') {
+							$.ajax({
+							url: "../php/updateStatus.php",
+							type: "GET",
+							data: "id="+data.Id+"&table=ProductEntity&status="+data.Status,
+							success: function(result){
+								layer.msg(result);
+								table.reload('idTest') //重载表格数据
+							}
+						});
+						} else if (obj.event === 'del') {
+							layer.confirm('是否确定？', function(index){
+							$.ajax({
+									url: "../php/delete.php",
+									type: "GET",
+									data: "table=ProductEntity&id="+data.Id,
+									success: function(result){
+										layer.msg(result);
 									}
 								});
-								var $ = layui.$,
-									active = {
-										reload: function() {
-											var demoReload = $('#demoReload');
-					
-											//执行重载
-											table.reload('idTest', {
-												page: {
-													curr: 1 //重新从第 1 页开始
-												},
-												where: {
-													key: {
-														id: demoReload.val()
-													}
-												}
-											});
-										}
-									};
-					
-								$('.demoTable .layui-btn').on('click', function() {
-									var type = $(this).data('type');
-									active[type] ? active[type].call(this) : '';
-								});
+							//关闭提示框
+							layer.close(index);
+							//重载表格数据
+							table.reload('idTest');
+						});
+						} else if (obj.event === 'edit') {
+							layer.open({
+								type: 2,
+								title: '编辑',
+								maxmin: true,
+								shadeClose: true, //点击遮罩关闭层
+								area: ['600px', '500px'],
+								content: 'baseData_fivedit.html',
+								success: function(layero,index){
+								var body = layer.getChildFrame('body',index);
+								body.find('#id').val(data.Id);
+								form.render();
+							 }
+							});
+						}
+					});
 			});
 		</script>
 	</body>
