@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>用户操作</title>
+		<link rel="stylesheet" href="../js/layui/css/layui.css"/>
+	</head>
+	<body class="layui-layout-body">
+		<div class="layui-fluid">
+			<form class="layui-form">
+				<div class="layui-form-item">
+					</div>
+				<div class="layui-form-item">	
+					<label class="layui-form-label">Code</label>
+					<div class="layui-input-block">
+						<input name="id" class="layui-input" type="text" placeholder="100000" autocomplete="off"/>
+					</div>
+				</div>
+				<div class="layui-form-item">	
+					<label class="layui-form-label">IPC</label>
+					<div class="layui-input-block">
+						<input name="login" class="layui-input" type="text" placeholder="心的远行" autocomplete="off"/>
+					</div>
+				</div>
+				<div class="layui-form-item">	
+					<label class="layui-form-label">Code</label>
+					<div class="layui-input-block">
+						<input name="status" class="layui-input" type="text" placeholder="" autocomplete="off"/>
+					</div>
+				</div>
+				<div class="layui-form-item">	
+					<label class="layui-form-label">用户名</label>
+					<div class="layui-input-block">
+						<input name="creator" class="layui-input" type="text" placeholder="" autocomplete="off"/>
+					</div>
+				</div>
+				<div class="layui-form-item">	
+					<label class="layui-form-label">管理者</label>
+					<div class="layui-input-block">
+						<input name="manager" class="layui-input" type="text" placeholder="" autocomplete="off"/>
+					</div>
+				</div>
+				<div class="layui-form-item">	
+					<label class="layui-form-label">工作区间</label>
+					<div class="layui-input-block">
+						<input name="workshop" class="layui-input" type="text" placeholder="" autocomplete="off"/>
+					</div>
+				</div>
+				<div class="layui-form-item">
+				    <div class="layui-input-block">
+				    	<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+				    	<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				    </div>
+				</div>
+			</form>	
+		</div>
+		<script src="../js/layui/layui.js"></script>
+		<script>
+			layui.use(['element','layer','form'],function(){
+				var element = layui.element
+				,layer = layui.layer
+				,form = layui.form
+				,$ = layui.jquery;
+			})	
+		</script>		
+	</body>
+</html>

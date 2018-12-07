@@ -2,10 +2,8 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
-
-		<link rel="stylesheet" href="../js/layui/css/layui.css" />
-
+		<title>用户操作</title>
+		<link rel="stylesheet" href="../js/layui/css/layui.css"/>
 	</head>
 	<body class="layui-layout-body">
 		<div class="layui-fluid">
@@ -13,21 +11,21 @@
 				<div class="layui-form-item">	
 				</div>
 				<div class="layui-form-item">	
-					<label class="layui-form-label">原始密码</label>
-					<div class="layui-input-inline">
-						<input name="id" class="layui-input" type="password" placeholder="" autocomplete="off"/>
+					<label class="layui-form-label">Code</label>
+					<div class="layui-input-block">
+						<input name="id" class="layui-input" type="text" placeholder="100000" autocomplete="off"/>
 					</div>
 				</div>
 				<div class="layui-form-item">	
-					<label class="layui-form-label">新的密码</label>
-					<div class="layui-input-inline">
-						<input name="id" class="layui-input" type="password" placeholder="" autocomplete="off"/>
+					<label class="layui-form-label">用户名</label>
+					<div class="layui-input-block">
+						<input name="login" class="layui-input" type="text" placeholder="心的远行" autocomplete="off"/>
 					</div>
 				</div>
 				<div class="layui-form-item">	
-					<label class="layui-form-label">确认密码</label>
-					<div class="layui-input-inline">
-						<input name="id" class="layui-input" type="password" placeholder="" autocomplete="off"/>
+					<label class="layui-form-label">创造者</label>
+					<div class="layui-input-block">
+						<input name="creator" class="layui-input" type="text" placeholder="" autocomplete="off"/>
 					</div>
 				</div>
 				<div class="layui-form-item">
@@ -38,7 +36,6 @@
 				</div>
 			</form>	
 		</div>
-
 		<script src="../js/layui/layui.js"></script>
 		<script>
 			layui.use(['element','layer','form'],function(){
