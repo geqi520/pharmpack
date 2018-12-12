@@ -51,6 +51,7 @@ class AdminDB{
 			if($result)
 				return true;
 			else
+				echo "error";
 				return false;
 		}
 	}

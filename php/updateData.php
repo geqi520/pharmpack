@@ -29,6 +29,12 @@
 		case 'IndustrialComputer':
 			$sql="UPDATE IndustrialComputer SET Code='$data->code',Name='$data->name',Remark1='$data->remark' WHERE Id='$data->id'";
 			break;
+		case 'ProductEntity':
+			$sql="UPDATE ProductEntity SET Code='$data->code',Name='$data->name',GTIN='$data->GTIN',AuthorizedNo='$data->AuthorizedNo',EnterpriseID='$data->modules',ValidTime='$data->exp',Spec='$data->spec',FormOfDrug='$data->NDC',PackUnit='$data->packunit',Remark2='$data->pack',Creator='$data->creator',CreateDate='$data->createdate' WHERE Id='$data->id'";
+			break;
+		case 'Account':
+			$sql="UPDATE Account SET TrueName='$data->truename',LoginName='$data->loginname',Password='$data->password' WHERE Id='$data->id'";
+			break;
 		default:
 			return 0;
 	}

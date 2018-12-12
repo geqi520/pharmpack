@@ -15,13 +15,13 @@
 					<div class="layui-inline">
 						<label class="layui-form-label">代码：</label>
 						<div class="layui-input-block">
-							<input type="text" name="title" autocomplete="off" class="layui-input">
+							<input type="text" id="code" name="code" autocomplete="off" class="layui-input">
 						</div>
 					</div>
 					<div class="layui-inline">
 						<label class="layui-form-label">产品：</label>
 						<div class="layui-input-block">
-							<input type="text" name="title" autocomplete="off" class="layui-input">
+							<input type="text" id="name" name="name" autocomplete="off" class="layui-input">
 						</div>
 					</div>
 				</div>
@@ -29,35 +29,34 @@
 					<div class="layui-inline">
 						<label class="layui-form-label">GTIN：</label>
 						<div class="layui-input-block">
-							<input type="text" name="title" autocomplete="off" class="layui-input">
+							<input type="text" id="GTIN" name="GTIN" autocomplete="off" class="layui-input">
 						</div>
 					</div>
 					<div class="layui-inline">
 						<label class="layui-form-label">批准号：</label>
 						<div class="layui-input-block">
-							<input type="text" name="title" autocomplete="off" class="layui-input">
+							<input type="text" id="AuthorizedNo" name="AuthorizedNo" autocomplete="off" class="layui-input">
 						</div>
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<div class="layui-inline">
 						<label class="layui-form-label">设备：</label>
-						<div class="layui-input-inline">
-							<select name="modules" lay-search="">
-								<option value="1">layer</option>
-								<option value="2">form</option>
-								<option value="3">layim</option>
+						<input type="hidden" id="enterprise" autocomplete="off" class="layui-input">
+						<div class="layui-input-inline" style="width: 182px">
+							<select id="ep" name="modules" lay-search="">
 							</select>
 						</div>
 					</div>
 					<div class="layui-inline">
 						<label class="layui-form-label">EXP：</label>
-						<div class="layui-input-inline">
-							<select name="modules" lay-search="">
-								<option value="1">layer</option>
-								<option value="2">form</option>
-								<option value="3">layim</option>
-								<option value="4">element</option>
+						<div class="layui-input-inline" style="width: 50px">
+							<input type="text" id="exp" name="exp" autocomplete="off" class="layui-input">
+						</div>
+						<div class="layui-input-inline" style="width: 60px">
+							<select id="time" name="date" lay-search="">
+								<option value="day">天</option>
+								<option value="month">月</option>
 							</select>
 						</div>
 					</div>
@@ -66,41 +65,41 @@
 					<div class="layui-inline">
 						<label class="layui-form-label">重量：</label>
 						<div class="layui-input-block">
-							<input type="text" name="title" autocomplete="off" class="layui-input">
+							<input type="text" id="spec" name="spec" autocomplete="off" class="layui-input">
 						</div>
 					</div>
 					<div class="layui-inline">
-						<label class="layui-form-label">产品代码：</label>
+						<label class="layui-form-label">NDC码：</label>
 						<div class="layui-input-block">
-							<input type="text" name="title" autocomplete="off" class="layui-input">
+							<input type="text" id="NDC" name="NDC" autocomplete="off" class="layui-input">
 						</div>
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<div class="layui-inline">
-						<label class="layui-form-label">药品验证号：</label>
+						<label class="layui-form-label">药品码：</label>
 						<div class="layui-input-block">
-							<input type="text" name="title" autocomplete="off" class="layui-input">
+							<input type="text" id="packunit" name="packunit" autocomplete="off" class="layui-input">
 						</div>
 					</div>
 					<div class="layui-inline">
 						<label class="layui-form-label">打包单位：</label>
 						<div class="layui-input-block">
-							<input type="text" name="title" autocomplete="off" class="layui-input">
+							<input type="text" name="pack" autocomplete="off" class="layui-input">
 						</div>
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<div class="layui-inline">
-						<label class="layui-form-label">生产者：</label>
+						<label class="layui-form-label">创建者ID：</label>
 						<div class="layui-input-block">
-							<input type="text" name="title" autocomplete="off" class="layui-input">
+							<input type="text" id="creator" name="creator" autocomplete="off" class="layui-input">
 						</div>
 					</div>
 					<div class="layui-inline">
-						<label class="layui-form-label">生产时间：</label>
+						<label class="layui-form-label">创建时间：</label>
 						<div class="layui-input-block">
-							<input type="text" name="title" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+							<input type="text" id="createdate" name="createdate" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
 						</div>
 					</div>
 				</div>
@@ -119,7 +118,44 @@
 				,layer = layui.layer
 				,form = layui.form
 				,$ = layui.jquery;
-			})	
+				$.ajax({
+					url:"../php/editfind.php",
+					type:"GET",
+					success: function(result){
+						let obj = JSON.parse(result);
+						for(let i=0;i<obj.count;i++){
+							if(obj[i].Id==$("#enterprise").val()){
+								$("#ep").append("<option value="+obj[i].Id+" selected >"+obj[i].Name+"</option>");
+								continue;
+							}
+							$("#ep").append("<option value="+obj[i].Id+">"+obj[i].Name+"</option>");
+						}
+						form.render('select');
+					}
+				});
+				form.on('submit(formDemo)',function(data){
+					$.ajax({
+						url:"../php/updateData.php",
+						type:"POST",
+						data: "table=ProductEntity&data="+JSON.stringify(data.field),
+						success: function(result){
+							if(result){
+								layer.msg("成功",{icon: 1,time: 1000});
+								var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+								setTimeout(function(){
+									parent.layer.close(index); //再执行关闭
+									parent.location.reload();
+								},1000);
+							}
+							else{
+								layer.msg("失败",{icon: 2});
+								setTimeout(function(){layer.closeAll();},1000);
+							}
+						}
+					});
+					return false;
+				});
+			})
 		</script>		
 	</body>
 </html>

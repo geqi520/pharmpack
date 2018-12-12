@@ -38,82 +38,26 @@
 						</div>
 					</div>
 				</div>
-				<table class="layui-hide" id="LAY_table_user" lay-filter="user"></table>
+				<table class="layui-table" lay-data="{width: 1000, height:500, url: '../php/systemLog.php',where:{table:'SystemLog'}, page:true}"  lay-filter="user">
+					<thead>
+					<tr>
+						<th lay-data="{field: 'ModulesName',width: 120}">功能描述</th>
+						<th lay-data="{field: 'ActionName',width: 120}">操作类型</th>
+						<th lay-data="{field:'ActionType', width:120}">操作方式</th>
+						<th lay-data="{field:'Message', width:120}">信息</th>
+						<th lay-data="{field:'Operator', width:120}">操作者</th>
+						<th lay-data="{field:'OperateTime', width:120}">操作时间</th>
+					</tr>
+					</thead>
+				</table>
 			</div>
 		</div>
 		<script src="../js/layui/layui.js"></script>
 		<script>
 			layui.use('table', function() {
-				var table = layui.table;
+				var table = layui.table,
+					$ = layui.jquery;
 
-				//方法级渲染
-				table.render({
-					elem: '#LAY_table_user',
-					url: '/demo/table/user/',
-					cols: [
-						[{
-							field: 'id',
-							title: 'ID',
-							width: 80,
-							sort: true,
-							fixed: true
-						}, {
-							field: 'username',
-							title: '功能描述',
-							width: 120
-						}, {
-							field: 'sex',
-							title: '操作类别',
-							width: 120,
-							sort: true
-						}, {
-							field: 'city',
-							title: '操作方式',
-							width: 120
-						}, {
-							field: 'experience',
-							title: '信息',
-							width: 200
-						}, {
-							field: 'score',
-							title: '操作者',
-							sort: true,
-							width: 120
-						}, {
-							field: 'wealth',
-							title: '操作时间',
-							width: 120
-						}]
-					],
-					id: 'testReload',
-					page: true,
-					height: 315,
-					width:880
-				});
-
-				var $ = layui.$,
-					active = {
-						reload: function() {
-							var demoReload = $('#demoReload');
-
-							//执行重载
-							table.reload('testReload', {
-								page: {
-									curr: 1 //重新从第 1 页开始
-								},
-								where: {
-									key: {
-										id: demoReload.val()
-									}
-								}
-							});
-						}
-					};
-
-				$('.demoTable .layui-btn').on('click', function() {
-					var type = $(this).data('type');
-					active[type] ? active[type].call(this) : '';
-				});
 			});
 		</script>
 	</body>
