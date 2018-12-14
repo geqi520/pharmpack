@@ -87,9 +87,9 @@
 				});
 				form.on('submit(go)',function(data){
 					$.ajax({
-						url:"../php/updatePackingRule.php",
+						url:"../php/updateData.php",
 						type:"POST",
-						data: "data="+JSON.stringify(data.field),
+						data: "table=PackingRule&data="+JSON.stringify(data.field),
 						success: function(result){
 							if(result){
 								layer.msg("成功",{icon: 1,time: 1000});
@@ -102,7 +102,7 @@
 							}
 							else{
 								layer.msg("失败",{icon: 2});
-								layer.closeAll();
+								setTimeout(function(){layer.closeAll();},1000);
 							}	
 						}
 					});

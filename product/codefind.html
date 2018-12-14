@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="../js/layui/css/layui.css" />
+	</head>
+	<body>
+		<form class="layui-form" action="">
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">代码：</label>
+					<div class="layui-input-inline">
+						<input type="text" name="code" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">父码：</label>
+					<div class="layui-input-inline">
+						<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">任务：</label>
+					<div class="layui-input-inline">
+						<input type="text" name="task" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<button class="layui-btn" data-type="reload">搜索</button>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">产品：</label>
+					<div class="layui-input-block">
+						<input type="text" name="product"  placeholder="请输入标题" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">码状态：</label>
+					<div class="layui-input-inline">
+						<select id="codestatus" name="modules" lay-search="">
+							<option value="1">可用<option>
+							<option value="0">不可用<option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">任务等级：</label>
+					<div class="layui-input-inline">
+						<select id="level" name="modules" lay-search="">
+							<option value="1">1<option>
+							<option value="2">2<option>
+							<option value="3">3<option>
+							<option value="4">4<option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<button class="layui-btn" data-type="reload">搜索</button>
+				</div>
+			</div>
+
+		</form>
+		<div class="layui-card-body layui-admin-card-body">
+							 
+		<table class="layui-table" lay-data="{width: 1000, height:500, url:'../php/findData.php',where:{table:'ProductEntity'}, page:true, id:'idTest'}" lay-filter="demo">
+		  <thead>
+		    <tr>
+		      <th lay-data="{field:'Code', width:110, sort: true, fixed: true}">码</th>
+		      <th lay-data="{field:'ParentCode', width:110}">父码</th>
+		      <th lay-data="{field:'Level', width:80}">等级</th>
+		      <th lay-data="{field:'AuthorizedNo', width:110}">状态</th>
+		      <th lay-data="{field:'Spec', width:110}">Batch NO</th>
+		      <th lay-data="{field:'PackUnit', width:110}">任务码</th>
+		      <th lay-data="{field:'Status', width:80}">产品名</th>
+		      <th lay-data="{field:'Spec', width:80}">含量</th>
+		    </tr>
+		  </thead>
+		</table>
+		</div>
+		<script src="../js/layui/layui.js"></script>
+		<script src="../js/jquery-3.3.1.min.js"></script>
+		<script>
+			layui.use(['element', 'layer', 'form', 'table'], function() {
+				var element = layui.element,
+					layer = layui.layer,
+					form = layui.form,
+					table = layui.table,
+					$ = layui.jquery;
+				
+			});
+		</script>
+	</body>
+</html>

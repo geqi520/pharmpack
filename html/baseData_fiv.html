@@ -11,19 +11,19 @@
 				<div class="layui-inline">
 					<label class="layui-form-label">代码：</label>
 					<div class="layui-input-block">
-						<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+						<input type="text" name="code" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-inline">
 					<label class="layui-form-label">生产：</label>
 					<div class="layui-input-block">
-						<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+						<input type="text" name="name" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-inline">
 					<label class="layui-form-label">GTIN：</label>
 					<div class="layui-input-block">
-						<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+						<input type="text" name="GTIN" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-inline">
@@ -32,35 +32,16 @@
 			</div>
 			<div class="layui-form-item">
 				<div class="layui-inline">
-					<label class="layui-form-label">可生产数：</label>
+					<label class="layui-form-label">批准号：</label>
 					<div class="layui-input-block">
-						<input type="text" name="title"  placeholder="请输入标题" autocomplete="off" class="layui-input">
+						<input type="text" name="ap_no"  placeholder="请输入标题" autocomplete="off" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-inline">
-					<label class="layui-form-label">计划：</label>
+					<label class="layui-form-label">企业：</label>
 					<div class="layui-input-inline">
-						<select name="modules" lay-search="">
-							<option value="1">layer</option>
-							<option value="2">form</option>
-							<option value="3">layim</option>
-							<option value="4">element</option>
-							<option value="5">laytpl</option>
-							<option value="6">upload</option>
-							<option value="7">laydate</option>
-							<option value="8">laypage</option>
-							<option value="9">flow</option>
-							<option value="10">util</option>
-							<option value="11">code</option>
-							<option value="12">tree</option>
-							<option value="13">layedit</option>
-							<option value="14">nav</option>
-							<option value="15">tab</option>
-							<option value="16">table</option>
-							<option value="17">select</option>
-							<option value="18">checkbox</option>
-							<option value="19">switch</option>
-							<option value="20">radio</option>
+						<select id="enterp" name="modules" lay-search="">
+							
 						</select>
 					</div>
 				</div>
@@ -71,25 +52,25 @@
 		</form>
 		<div class="layui-card-body layui-admin-card-body">
 							 
-		<table class="layui-table" lay-data="{width: 1000, height:500, url:'', page:true, id:'idTest'}" lay-filter="demo">
+		<table class="layui-table" lay-data="{width: 1000, height:500, url:'../php/findData.php',where:{table:'ProductEntity'}, page:true, id:'idTest'}" lay-filter="demo">
 		  <thead>
 		    <tr>
-		      <th lay-data="{field:'productCode', width:110, sort: true, fixed: true}">生产代码</th>
-		      <th lay-data="{field:'productName', width:110}">生产名称</th>
+		      <th lay-data="{field:'Code', width:110, sort: true, fixed: true}">生产代码</th>
+		      <th lay-data="{field:'Name', width:110}">生产名称</th>
 		      <th lay-data="{field:'GTIN', width:80}">GTIN</th>
-		      <th lay-data="{field:'approvalNo', width:110}">可生产数</th>
-		      <th lay-data="{field:'spec', width:110}">重量说明</th>
-		      <th lay-data="{field:'commodityCode', width:110}">商品编码</th>
-		      <th lay-data="{field:'status', width:80}">状态</th>
+		      <th lay-data="{field:'AuthorizedNo', width:110}">批准号</th>
+		      <th lay-data="{field:'Spec', width:110}">重量</th>
+		      <th lay-data="{field:'PackUnit', width:110}">商品码</th>
+		      <th lay-data="{field:'Status', width:80}">状态</th>
 			  <th lay-data="{fixed: 'right', width:280, align:'center', toolbar: '#barDemo'}">操作</th>
 		    </tr>
 		  </thead>
 		</table>
-						</div>
+		</div>
 		<script src="../js/layui/layui.js"></script>
 		<script src="../js/jquery-3.3.1.min.js"></script>
 		<script type="text/html" id="barDemo">
-					<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+			<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">改变状态</a>
 		  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
 		  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 		</script>
@@ -100,59 +81,80 @@
 					form = layui.form,
 					table = layui.table,
 					$ = layui.jquery;
+					$.ajax({
+						url:"../php/editfind.php",
+						type:"GET",
+						success: function(result){
+							let obj = JSON.parse(result);
+							for(let i=0;i<obj.count;i++){
+								$("#enterp").append("<option value="+obj[i].Id+">"+obj[i].Name+"</option>");
+							}
+							form.render('select');
+						}
+					});
 					$('#ugnew').on('click', function() {
 						layer.open({
 							type: 2,
 							title: '新建',
-							maxmin: true,
 							shadeClose: true, //点击遮罩关闭层
-							area: ['800px', '650px'],
+							area: ['700px', '550px'],
 							content: 'baseData_fivnew.html'
 						});
 					});
 					table.on('tool(demo)', function(obj) {
-									var data = obj.data;
-									if (obj.event === 'detail') {
-										layer.msg('ID：' + data.id + ' 的查看操作');
-									} else if (obj.event === 'del') {
-										layer.confirm('真的删除行么', function(index) {
-											obj.del();
-											layer.close(index);
-										});
-									} else if (obj.event === 'edit') {
-										layer.open({
-											type: 2,
-											title: '编辑',
-											maxmin: true,
-											shadeClose: true, //点击遮罩关闭层
-											area: ['600px', '500px'],
-											content: 'baseData_fivedit.html'
-										});
+						var data = obj.data;
+						if (obj.event === 'detail') {
+							$.ajax({
+							url: "../php/updateStatus.php",
+							type: "GET",
+							data: "id="+data.Id+"&table=ProductEntity&status="+data.Status,
+							success: function(result){
+								layer.msg(result);
+								table.reload('idTest') //重载表格数据
+							}
+						});
+						} else if (obj.event === 'del') {
+							layer.confirm('是否确定？', function(index){
+							$.ajax({
+									url: "../php/delete.php",
+									type: "GET",
+									data: "table=ProductEntity&id="+data.Id,
+									success: function(result){
+										layer.msg(result);
 									}
 								});
-								var $ = layui.$,
-									active = {
-										reload: function() {
-											var demoReload = $('#demoReload');
-					
-											//执行重载
-											table.reload('idTest', {
-												page: {
-													curr: 1 //重新从第 1 页开始
-												},
-												where: {
-													key: {
-														id: demoReload.val()
-													}
-												}
-											});
-										}
-									};
-					
-								$('.demoTable .layui-btn').on('click', function() {
-									var type = $(this).data('type');
-									active[type] ? active[type].call(this) : '';
-								});
+							//关闭提示框
+							layer.close(index);
+							//重载表格数据
+							table.reload('idTest');
+						});
+						} else if (obj.event === 'edit') {
+							layer.open({
+								type: 2,
+								title: '编辑',
+								maxmin: true,
+								shadeClose: true, //点击遮罩关闭层
+								area: ['700px', '550px'],
+								content: 'baseData_fivedit.html',
+								success: function(layero,index){
+								var body = layer.getChildFrame('body',index);
+								body.find('#id').val(data.Id);
+								body.find('#code').val(data.Code);
+								body.find('#name').val(data.Name);
+								body.find('#GTIN').val(data.GTIN);
+								body.find('#AuthorizedNo').val(data.AuthorizedNo);
+								body.find('#enterprise').val(data.EnterpriseID);
+								body.find('#exp').val(data.ValidTime);
+								body.find('#spec').val(data.Spec);
+								body.find('#NDC').val(data.FormOfDrug);
+								body.find('#packunit').val(data.PackUnit);
+								body.find('#creator').val(data.Creator);
+								body.find('#createdate').val(data.CreateDate.date.slice(0,10));
+								form.render();
+							 }
+							});
+						}
+					});
 			});
 		</script>
 	</body>

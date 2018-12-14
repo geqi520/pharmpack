@@ -5,17 +5,7 @@
 		<title></title>
 		<link rel="stylesheet" href="../js/layui/css/layui.css" />
 		<link  rel="stylesheet" href="../css/index.css" />
-		<script>
-			//iframe高度自适应
-			function setIframeHeight(iframe) {
-				if (iframe) {
-					var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
-					if (iframeWin.document.body) {
-						iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
-					}
-				}
-			};
-		</script>
+		
 	</head>
 	<body class="layui-layout-body">
 		<div class="layui-layout layui-layout-admin">
@@ -71,7 +61,8 @@
 						<li class="layui-nav-item">
 							<a href="javascript:;" title="用户"><i class="layui-icon layui-icon-util"></i><cite>产品管理</cite></a>
 							<dl class="layui-nav-child">
-								<dd><a href="javascript:;" lay-href="./user.html">角色管理</a></dd>
+								<dd><a href="javascript:;" lay-href="../product/codefind.html">码查询</a></dd>
+								<dd><a href="javascript:;" lay-href="../product/taskmg.html">任务管理</a></dd>
 							</dl>
 						</li>
 						<li class="layui-nav-item">
@@ -85,7 +76,6 @@
 							<dl class="layui-nav-child">
 								<dd><a href="javascript:;" lay-href="./changepassword.html">修改密码</a></dd>
 								<dd><a href="javascript:;" lay-href="../system/ug.html">用户管理</a></dd>
-								<dd><a href="javascript:;" lay-href="../system/system.html">不知道是啥</a></dd>
 								<dd><a href="javascript:;" lay-href="../system/systemlog.html">系统日志</a></dd>
 							</dl>
 						</li>
@@ -235,6 +225,17 @@
 					}
 				});
 			});
+		</script>
+		<script>
+			//iframe高度自适应
+			function setIframeHeight(iframe) {
+				if (iframe) {
+					var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+					if (iframeWin.document.body) {
+						iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+					}
+				}
+			};
 		</script>
 	</body>
 </html>
