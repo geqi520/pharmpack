@@ -13,19 +13,13 @@
 				<div class="layui-form-item">	
 					<label class="layui-form-label">Code</label>
 					<div class="layui-input-block">
-						<input name="id" class="layui-input" type="text" placeholder="100000" autocomplete="off"/>
+						<input name="code" class="layui-input" type="text" placeholder="Code" autocomplete="off"/>
 					</div>
 				</div>
 				<div class="layui-form-item">	
 					<label class="layui-form-label">用户名</label>
 					<div class="layui-input-block">
-						<input name="login" class="layui-input" type="text" placeholder="心的远行" autocomplete="off"/>
-					</div>
-				</div>
-				<div class="layui-form-item">	
-					<label class="layui-form-label">状态</label>
-					<div class="layui-input-block">
-						<input name="status" class="layui-input" type="text" placeholder="" autocomplete="off"/>
+						<input name="name" class="layui-input" type="text" placeholder="用户名" autocomplete="off"/>
 					</div>
 				</div>
 				<div class="layui-form-item">	
@@ -49,6 +43,28 @@
 				,layer = layui.layer
 				,form = layui.form
 				,$ = layui.jquery;
+				form.on('submit(formDemo)',function(data){
+					$.ajax({
+						url:"../php/addData.php",
+						type:"POST",
+						data: "table=Enterprise&data="+JSON.stringify(data.field),
+						success: function(result){
+							if(result){
+								layer.msg("成功",{icon: 1,time: 1000});
+								var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+								setTimeout(function(){
+									parent.layer.close(index); //再执行关闭
+									parent.location.reload();
+								},1000);
+							}
+							else{
+								layer.msg("失败",{icon: 2});
+								setTimeout(function(){layer.closeAll();},1000);
+							}
+						}
+					});
+					return false;
+				});
 			})	
 		</script>		
 	</body>

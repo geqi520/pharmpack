@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="../js/layui/css/layui.css" />
+	</head>
+	<body>
+		<form class="layui-form" action="">
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">生产线：</label>
+					<div class="layui-input-inline">
+						<select name="packingline">
+							
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">任务码：</label>
+					<div class="layui-input-block">
+						<input type="text" name="task" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<button class="layui-btn" data-type="reload">搜索</button>
+				</div>
+			</div>
+			
+
+		</form>
+		<div class="layui-card-body layui-admin-card-body">
+							 
+		<table class="layui-table" lay-data="{width: 1000, height:500, url:'../php/findData.php',where:{table:'ProductEntity'}, page:true, id:'idTest'}" lay-filter="demo">
+		  <thead>
+		    <tr>
+		      <th lay-data="{field:'PackingLine', width:110}">生产线</th>
+		      <th lay-data="{field:'TaskCode', width:110}">任务码</th>
+		      <th lay-data="{field:'Level', width:80}">Batch No.</th>
+		      <th lay-data="{field:'AuthorizedNo', width:110}">Plant</th>
+		      <th lay-data="{field:'Spec', width:110}">组码</th>
+		      <th lay-data="{field:'PackUnit', width:110}">产品名</th>
+		      <th lay-data="{field:'Spec', width:80}">含量</th>
+		      <th lay-data="{field:'PackingRule', width:80}">包装规则</th>
+		      <th lay-data="{field:'Status', width:80}">状态</th>
+			  <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}">操作</th>
+		    </tr>
+		  </thead>
+		</table>
+		</div>
+		<script src="../js/layui/layui.js"></script>
+		<script src="../js/jquery-3.3.1.min.js"></script>
+		<script type="text/html" id="barDemo">
+		  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+		  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+		</script>
+		<script>
+			layui.use(['element', 'layer', 'form', 'table'], function() {
+				var element = layui.element,
+					layer = layui.layer,
+					form = layui.form,
+					table = layui.table,
+					$ = layui.jquery;
+				table.on('tool(demo)', function(obj) {
+				var data = obj.data;
+				if (obj.event === 'del') {
+					layer.confirm('是否确定？', function(index){
+							$.ajax({
+									url: "../php/delete.php",
+									type: "GET",
+									data: "table=Account&id="+data.Id,
+									success: function(result){
+										layer.msg(result);
+									}
+								});
+							//关闭提示框
+							layer.close(index);
+							//重载表格数据
+							table.reload('idTest');
+						});
+				} else if (obj.event === 'edit') {
+					layer.open({
+						type: 2,
+						title: '编辑',
+						maxmin: true,
+						shadeClose: true, //点击遮罩关闭层
+						area: ['600px', '500px'],
+						content: 'ugnew.html',
+						success: function(layero,index){
+							var body = layer.getChildFrame('body',index);
+							body.find('#id').val(data.Id);
+							body.find('#tn').val(data.TrueName);
+							body.find('#ln').val(data.LoginName);
+							form.render();
+						}
+					});
+				}
+			});
+			});
+		</script>
+	</body>
+</html>

@@ -76,7 +76,6 @@
 							<dl class="layui-nav-child">
 								<dd><a href="javascript:;" lay-href="./changepassword.html">修改密码</a></dd>
 								<dd><a href="javascript:;" lay-href="../system/ug.html">用户管理</a></dd>
-								<dd><a href="javascript:;" lay-href="../system/system.html">不知道是啥</a></dd>
 								<dd><a href="javascript:;" lay-href="../system/systemlog.html">系统日志</a></dd>
 							</dl>
 						</li>
@@ -237,6 +236,17 @@
 					}
 				});
 			});
+		</script>
+		<script>
+			//iframe高度自适应
+			function setIframeHeight(iframe) {
+				if (iframe) {
+					var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+					if (iframeWin.document.body) {
+						iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+					}
+				}
+			};
 		</script>
 	</body>
 </html>
