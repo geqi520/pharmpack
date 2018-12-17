@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="../js/layui/css/layui.css" />
+	</head>
+	<body>
+		<form class="layui-form" action="">
+			<div class="layui-form-item"></div>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">包装线：</label>
+					<div class="layui-input-inline">
+						<select name="packingLine" lay-verify="required" lay-search="" id="demoReload">
+							<option value="">直接选择或搜索选择</option>
+							<option value="1">layer</option>
+							<option value="2">form</option>
+							<option value="3">layim</option>
+							<option value="4">element</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">生产代码：</label>
+					<div class="layui-input-inline">
+						<input type="text" name="taskCode" required lay-verify="required" placeholder="请输入标题" autocomplete="off" id="demoReload"
+						 class="layui-input">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">LOT：</label>
+					<div class="layui-input-inline">
+						<input type="text" name="LOT" required lay-verify="required" placeholder="请输入标题" autocomplete="off" id="demoReload"
+						 class="layui-input">
+					</div>
+					<button class="layui-btn" data-type="reload">搜索</button>
+				</div>
+			</div>
+		</form>
+		<div class="layui-card-body layui-admin-card-body">
+
+			<table class="layui-table" lay-data="{width: 1000, height:500, url:'demo1.json', page:true, id:'idTest'}" lay-filter="demo">
+				<thead>
+					<tr>
+						<th lay-data="{field:'packingLine', width:100}">包装线</th>
+						<th lay-data="{field:'taskCode', width:120}">生产代码</th>
+						<th lay-data="{field:'batchNo', width:100}">作业数量</th>
+						<th lay-data="{field:'subBatchNo', width:100}">审校数量</th>
+						<th lay-data="{field:'productName', width:120}">产品名称</th>
+						<th lay-data="{field:'spec', width:120}">说明</th>
+						<th lay-data="{field:'packingrule', width:120}">包装规则</th>
+						<th lay-data="{field:'status', width:100}">状态</th>
+						<th lay-data="{field:'operate', width:120,  align:'center', toolbar: '#barDemo'}">操作</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		<script src="../js/layui/layui.js"></script>
+		<script src="../js/jquery-3.3.1.min.js"></script>
+		<script type="text/html" id="barDemo">
+			<a class="layui-btn layui-btn-xs" lay-event="select">选择</a>
+		</script>
+		<script>
+			layui.use(['element', 'layer', 'form', 'table'], function() {
+				var element = layui.element,
+					layer = layui.layer,
+					form = layui.form,
+					table = layui.table,
+					$ = layui.jquery;
+				table.on('tool(demo)', function(obj) {
+					var data = obj.data;
+					if (obj.event === 'select') {}
+
+				});
+				var $ = layui.$,
+					active = {
+						reload: function() {
+							var demoReload = $('#demoReload');
+
+							//执行重载
+							table.reload('idTest', {
+								page: {
+									curr: 1 //重新从第 1 页开始
+								},
+								where: {
+									key: {
+										code: demoReload.val(),
+										product: demoReload.val(),
+										GTIN: demoReload.val(),
+										enterprise: demoReload.val()
+									}
+								}
+							});
+						}
+					};
+
+				$(' .lay-btn .suosuo').on('click', function() {
+					var type = $(this).data('type');
+					active[type] ? active[type].call(this) : '';
+				});
+			});
+		</script>
+	</body>
+</html>
