@@ -5,17 +5,7 @@
 		<title></title>
 		<link rel="stylesheet" href="../js/layui/css/layui.css" />
 		<link  rel="stylesheet" href="../css/index.css" />
-		<script>
-			//iframe高度自适应
-			function setIframeHeight(iframe) {
-				if (iframe) {
-					var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
-					if (iframeWin.document.body) {
-						iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
-					}
-				}
-			};
-		</script>
+		
 	</head>
 	<body class="layui-layout-body">
 		<div class="layui-layout layui-layout-admin">
@@ -71,7 +61,8 @@
 						<li class="layui-nav-item">
 							<a href="javascript:;" title="用户"><i class="layui-icon layui-icon-util"></i><cite>产品管理</cite></a>
 							<dl class="layui-nav-child">
-								<dd><a href="javascript:;" lay-href="./user.html">角色管理</a></dd>
+								<dd><a href="javascript:;" lay-href="../mgmt/task_mgmt.html">工程管理</a></dd>
+								<dd><a href="javascript:;" lay-href="../mgmt/code_query.html">代码查询</a></dd>
 							</dl>
 						</li>
 						<li class="layui-nav-item">
@@ -113,6 +104,17 @@
 			<div class="layui-footer">©pharmapack </div>
 		</div>
 		<script src="../js/layui/layui.js"></script>
+		<script>
+			//iframe高度自适应
+			function setIframeHeight(iframe) {
+				if (iframe) {
+					var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+					if (iframeWin.document.body) {
+						iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+					}
+				}
+			};
+		</script>
 		<script>
 			layui.use(['element','layer'],function(){
 				var element = layui.element
