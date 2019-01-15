@@ -19,11 +19,11 @@
 				<div class="layui-inline">
 					<label class="layui-form-label">任务码：</label>
 					<div class="layui-input-block">
-						<input type="text" name="task" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+						<input type="text" name="task"  placeholder="请输入标题" autocomplete="off" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-inline">
-					<button class="layui-btn" data-type="reload">搜索</button>
+					<button class="layui-btn" id="searchBtn" data-type="reload">搜索</button>
 				</div>
 			</div>
 			
@@ -61,6 +61,16 @@
 					form = layui.form,
 					table = layui.table,
 					$ = layui.jquery;
+					$('#searchBtn').on('click',function(){
+						$.ajax({
+							url:'',
+							type:"GET",
+							data:"table=ProductEntity&id="+data.Id,
+							success:function(){
+								table.reload('idTest')
+							}
+						})
+					})
 				table.on('tool(demo)', function(obj) {
 				var data = obj.data;
 				if (obj.event === 'del') {

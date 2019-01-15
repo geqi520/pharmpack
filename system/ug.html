@@ -24,7 +24,7 @@
 							搜索ID：
 							<div class="layui-inline">
 								<input class="layui-input" name="id" id="demoReload" autocomplete="off">
-							</div><button class="layui-btn" data-type="reload">搜索</button>
+							</div><button class="layui-btn" data-type="reload" id="searchBtn">搜索</button>
 						</div>
 					<div class="layui-form-item">
 						<div class="layui-btn" id="ugnew">新建</div>
@@ -115,29 +115,16 @@
 					});
 				}
 			});
-			var $ = layui.$,
-				active = {
-					reload: function() {
-						var demoReload = $('#demoReload');
-
-						//执行重载
-						table.reload('idTest', {
-							page: {
-								curr: 1 //重新从第 1 页开始
-							},
-							where: {
-								key: {
-									id: demoReload.val()
-								}
-							}
-						});
+			$('#searchBtn').on('click',function(){
+				$.ajax({
+					url:'',
+					type:"GET",
+					data:"table=ProductEntity&id="+data.Id,
+					success:function(){
+						table.reload('idTest')
 					}
-				};
-
-			$('.demoTable .layui-btn').on('click', function() {
-				var type = $(this).data('type');
-				active[type] ? active[type].call(this) : '';
-			});
+				})
+			})
 			});
 		</script>
 	</body>
