@@ -12,7 +12,7 @@
 				<div class="layui-inline">
 					<label class="layui-form-label">包装线：</label>
 					<div class="layui-input-inline">
-						<select name="packingLine" lay-verify="required" lay-search="" id="demoReload">
+						<select name="packingLine" lay-verify="required" lay-search="" >
 							<option value="">直接选择或搜索选择</option>
 							<option value="1">layer</option>
 							<option value="2">form</option>
@@ -24,17 +24,17 @@
 				<div class="layui-inline">
 					<label class="layui-form-label">生产代码：</label>
 					<div class="layui-input-inline">
-						<input type="text" name="taskCode" required lay-verify="required" placeholder="请输入标题" autocomplete="off" id="demoReload"
+						<input type="text" name="taskCode"placeholder="请输入标题" autocomplete="off" 
 						 class="layui-input">
 					</div>
 				</div>
 				<div class="layui-inline">
 					<label class="layui-form-label">LOT：</label>
 					<div class="layui-input-inline">
-						<input type="text" name="LOT" required lay-verify="required" placeholder="请输入标题" autocomplete="off" id="demoReload"
+						<input type="text" name="LOT" placeholder="请输入标题" autocomplete="off" 
 						 class="layui-input">
 					</div>
-					<button class="layui-btn" data-type="reload">搜索</button>
+					<button class="layui-btn" id="searchBtn" data-type="reload">搜索</button>
 				</div>
 			</div>
 		</form>
@@ -73,32 +73,17 @@
 					if (obj.event === 'select') {}
 
 				});
-				var $ = layui.$,
-					active = {
-						reload: function() {
-							var demoReload = $('#demoReload');
-
-							//执行重载
-							table.reload('idTest', {
-								page: {
-									curr: 1 //重新从第 1 页开始
-								},
-								where: {
-									key: {
-										code: demoReload.val(),
-										product: demoReload.val(),
-										GTIN: demoReload.val(),
-										enterprise: demoReload.val()
-									}
-								}
-							});
+				
+				$('#searchBtn').on('click',function(){
+					$.ajax({
+						url:'',
+						type:"GET",
+						data:"table=ProductEntity&id="+data.Id,
+						success:function(){
+							table.reload('idTest')
 						}
-					};
-
-				$(' .lay-btn .suosuo').on('click', function() {
-					var type = $(this).data('type');
-					active[type] ? active[type].call(this) : '';
-				});
+					})
+				})
 			});
 		</script>
 	</body>

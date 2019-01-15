@@ -11,13 +11,13 @@
 				<div class="layui-inline">
 					<label class="layui-form-label">代码：</label>
 					<div class="layui-input-block">
-						<input type="text" name="code" required lay-verify="required" placeholder="请输入标题" autocomplete="off" id="demoReload" class="layui-input">
+						<input type="text" name="code" placeholder="请输入标题" autocomplete="off"  class="layui-input">
 					</div>
 				</div>
 				<div class="layui-inline">
 					<label class="layui-form-label">父码：</label>
 					<div class="layui-input-block">
-						<input type="text" name="parent" required lay-verify="required" placeholder="请输入标题" autocomplete="off" id="demoReload" class="layui-input">
+						<input type="text" name="parent" placeholder="请输入标题" autocomplete="off"  class="layui-input">
 					</div>
 				</div>
 			</div>
@@ -25,14 +25,14 @@
 				<div class="layui-inline">
 					<label class="layui-form-label">工作：</label>
 					<div class="layui-input-inline">
-						<input type="text" name="parent" required lay-verify="required" placeholder="请输入标题" autocomplete="off" id="demoReload" class="layui-input">
+						<input type="text" name="parent"  placeholder="请输入标题" autocomplete="off"  class="layui-input">
 					</div>
 					<div class="layui-btn" id="ugnew">选择</div>
 				</div>
 				<div class="layui-inline">
 					<label class="layui-form-label">产品：</label>
 					<div class="layui-input-inline">
-						<input type="text" name="product" required lay-verify="required" placeholder="请输入标题" autocomplete="off" id="demoReload" class="layui-input">
+						<input type="text" name="product"  placeholder="请输入标题" autocomplete="off" id="demoReload" class="layui-input">
 					</div>
 					<div class="layui-btn" id="ugnew1">选择</div>
 				</div>
@@ -65,7 +65,7 @@
 						<option value="6">upload</option>
 					</select>
 				</div>
-				<button class="layui-btn sousuo" data-type="reload">搜索</button>
+				<button class="layui-btn" id="searchBtn" data-type="reload">搜索</button>
 				<button class="layui-btn" data-type="reset">重置</button>
 			</div>
 			</div>
@@ -115,34 +115,18 @@
 													content: 'codequery_ugnew1.html'
 												});
 											});
-								var $ = layui.$,
-									active = {
-										reload: function() {
-											var demoReload = $('#demoReload');
-					
-											//执行重载
-											table.reload('idTest', {
-												page: {
-													curr: 1 //重新从第 1 页开始
-												},
-												where: {
-													key: {
-														parent: demoReload.val(),
-														task:demoReload.val(),
-														Code:demoReload.val(),
-														product:demoReload.val(),
-														level:demoReload.val(),
-														codeStatus:demoReload.val()
+											
+											$('#searchBtn').on('click',function(){
+												$.ajax({
+													url:'',
+													type:"GET",
+													data:"table=ProductEntity&id="+data.Id,
+													success:function(){
+														table.reload('idTest')
 													}
-												}
-											});
-										}
-									};
-					
-								$(' .lay-btn .suosuo').on('click', function() {
-									var type = $(this).data('type');
-									active[type] ? active[type].call(this) : '';
-								});
+												})
+											})
+							
 			});
 		</script>
 	</body>
