@@ -1,5 +1,5 @@
 <?php
-	include_once("system.inc.php");
+	require_once("system.inc.php");
 	$table=$_POST["table"];
 	$data=json_decode($_POST["data"]);
 	switch($table){

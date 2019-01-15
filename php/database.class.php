@@ -32,28 +32,31 @@ class AdminDB{
 	function RunSQL($conn,$sql){
 		$sqltype=strtolower(substr(trim($sql),0,6));
 		$result=sqlsrv_query($conn,$sql);
-		if($sqltype=="select"){
-			if($result==false){
-				echo "select error";
-				return false;
-			}
-			else{
-				$array=array();
-				while($row=sqlsrv_fetch_array($result,SQLSRV_FETCH_ASSOC))
-				{
-					$array[]=$row;
+		try{
+			if($sqltype == "select"){
+				if($result==false){
+					//throw new exception("select error",1);
+					return false;
 				}
-				return $array;
+				else{
+					$array=array();
+					while($row=sqlsrv_fetch_array($result,SQLSRV_FETCH_ASSOC))
+					{
+						$array[]=$row;
+					}
+					return $array;
+				}
+					
 			}
-				
-		}
-		elseif($sqltype=="update"||$sqltype=="insert"||$sqltype=="delete"){
-			if($result)
-				return true;
-			else
-				echo "error";
-				return false;
+			elseif($sqltype=="update"||$sqltype=="insert"||$sqltype=="delete"){
+				if($result)
+					return true;
+				else
+					throw new exception("change error",2);
+					return false;
+			}
+		}catch(exception $e){
+			echo "position:".$e->getcode()."  msg:".$e->getMessage();
 		}
 	}
 }
-?>

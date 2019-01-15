@@ -1,5 +1,5 @@
 <?php
-	include_once("system.inc.php");
+	require_once("system.inc.php");
 	$first=$_GET["limit"];
 	$secend=($_GET["page"]-1)*$_GET["limit"];
 	$table=$_GET["table"];

@@ -1,5 +1,5 @@
 <?php
-	include_once("system.inc.php");
+	require_once("system.inc.php");
 	$id=$_GET["id"];
 	$table=$_GET["table"];
 	$status=$_GET["status"];
