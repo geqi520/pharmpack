@@ -58,7 +58,7 @@
 					</div>
 				</div>
 				<div class="layui-inline">
-					<button class="layui-btn" data-type="reload">搜索</button>
+					<button class="layui-btn" id="searchBtn" data-type="reload">搜索</button>
 				</div>
 			</div>
 
@@ -90,7 +90,19 @@
 					table = layui.table,
 					$ = layui.jquery;
 				
+				$('#searchBtn').on('click',function(){
+					$.ajax({
+						url:'',
+						type:"GET",
+						data:"table=ProductEntity&id="+data.Id,
+						success:function(){
+							table.reload('idTest')
+						}
+					})
+				})
 			});
+			
+		
 		</script>
 	</body>
 </html>

@@ -11,23 +11,23 @@
 				<div class="layui-inline">
 					<label class="layui-form-label">代码：</label>
 					<div class="layui-input-block">
-						<input type="text" name="code" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+						<input type="text" name="id" placeholder="请输入标题" autocomplete="off" class="layui-input" id="demoReload">
 					</div>
 				</div>
 				<div class="layui-inline">
 					<label class="layui-form-label">生产：</label>
 					<div class="layui-input-block">
-						<input type="text" name="name" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+						<input type="text" name="name"  placeholder="请输入标题" autocomplete="off" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-inline">
 					<label class="layui-form-label">GTIN：</label>
 					<div class="layui-input-block">
-						<input type="text" name="GTIN" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+						<input type="text" name="GTIN" placeholder="请输入标题" autocomplete="off" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-inline">
-					<button class="layui-btn" data-type="reload">搜索</button>
+					<button class="layui-btn" data-type="reload" id="searchBtn">搜索</button>
 				</div>
 			</div>
 			<div class="layui-form-item">
@@ -52,7 +52,7 @@
 		</form>
 		<div class="layui-card-body layui-admin-card-body">
 							 
-		<table class="layui-table" lay-data="{width: 1000, height:500, url:'../php/findData.php',where:{table:'ProductEntity'}, page:true, id:'idTest'}" lay-filter="demo">
+		<table class="layui-table" lay-data="{width: 1000, height:500, url:'1.json',where:{table:'ProductEntity'}, page:true, id:'idTest'}"lay-filter="demo">
 		  <thead>
 		    <tr>
 		      <th lay-data="{field:'Code', width:110, sort: true, fixed: true}">生产代码</th>
@@ -101,6 +101,17 @@
 							content: 'baseData_fivnew.html'
 						});
 					});
+					
+					$('#searchBtn').on('click',function(){
+						$.ajax({
+							url:'',
+							type:"GET",
+							data:"table=ProductEntity&id="+data.Id,
+							success:function(){
+								table.reload('idTest')
+							}
+						})
+					})
 					table.on('tool(demo)', function(obj) {
 						var data = obj.data;
 						if (obj.event === 'detail') {
