@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="../js/layui/css/layui.css" />
+	</head>
+	<body>
+		<div class="layui-layout-body">
+			<div class="layui-fluid">
+				<div class="demoTable">
+					<div class="layui-form">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">功能描述：</label>
+								<div class="layui-input-block">
+									<input name="id" class="layui-input" type="text" placeholder="请输入" autocomplete="off" />
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">操作类型：</label>
+								<div class="layui-input-block">
+									<input name="id" class="layui-input" type="text" placeholder="请输入" autocomplete="off" />
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">操作时间：</label>
+								<div class="layui-input-block">
+									<input name="id" class="layui-input" type="text" placeholder="请输入" autocomplete="off" />
+								</div>
+							</div>
+							<div class="layui-inline">
+								<button class="layui-btn" id="searchBtn" data-type="reload">搜索</button>
+							</div>
+							<div class="layui-inline">
+								<button class="layui-btn" data-type="export">导出</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<table class="layui-table" lay-data="{width: 1000, height:500, url: '../php/systemLog.php',where:{table:'SystemLog'}, page:true,id=idTest}"  lay-filter="user">
+					<thead>
+					<tr>
+						<th lay-data="{field: 'ModulesName',width: 120}">功能描述</th>
+						<th lay-data="{field: 'ActionName',width: 120}">操作类型</th>
+						<th lay-data="{field:'ActionType', width:120}">操作方式</th>
+						<th lay-data="{field:'Message', width:120}">信息</th>
+						<th lay-data="{field:'Operator', width:120}">操作者</th>
+						<th lay-data="{field:'OperateTime', width:120}">操作时间</th>
+					</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+		<script src="../js/layui/layui.js"></script>
+		<script>
+			layui.use('table', function() {
+				var table = layui.table,
+					$ = layui.jquery;
+					$('#searchBtn').on('click',function(){
+						$.ajax({
+							url:'',
+							type:"GET",
+							data:"table=ProductEntity&id="+data.Id,
+							success:function(){
+								table.reload('idTest')
+							}
+						})
+					})
+			});
+		</script>
+	</body>
+</html>

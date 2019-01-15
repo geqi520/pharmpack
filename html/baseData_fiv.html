@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="../js/layui/css/layui.css" />
+	</head>
+	<body>
+		<form class="layui-form" action="">
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">代码：</label>
+					<div class="layui-input-block">
+						<input type="text" name="Code" placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">生产：</label>
+					<div class="layui-input-block">
+						<input type="text" name="Name"  placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">GTIN：</label>
+					<div class="layui-input-block">
+						<input type="text" name="GTIN" placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">批准号：</label>
+					<div class="layui-input-block">
+						<input type="text" name="AuthorizedNo"  placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">企业：</label>
+					<div class="layui-input-inline">
+						<select id="enterp" name="EnterpriseID" lay-search="">
+							<option value="">请选择</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<button class="layui-btn" lay-submit lay-filter="searchBtn">搜索</button>
+				</div>
+			</div>
+				<div class="layui-form-item" >
+					<div class="layui-btn" id="ugnew">新建</div>
+				</div>
+		</form>
+		<div class="layui-card-body layui-admin-card-body">
+							 
+		<table class="layui-table" lay-data="{width: 1000, height:500, url:'../php/findData.php',where:{table:'ProductEntity'}, page:true, id:'idTest'}"lay-filter="demo">
+		  <thead>
+		    <tr>
+		      <th lay-data="{field:'Code', width:110, sort: true, fixed: true}">生产代码</th>
+		      <th lay-data="{field:'Name', width:110}">生产名称</th>
+		      <th lay-data="{field:'GTIN', width:80}">GTIN</th>
+		      <th lay-data="{field:'AuthorizedNo', width:110}">批准号</th>
+		      <th lay-data="{field:'Spec', width:110}">重量</th>
+		      <th lay-data="{field:'PackUnit', width:110}">商品码</th>
+		      <th lay-data="{field:'Status', width:80}">状态</th>
+			  <th lay-data="{fixed: 'right', width:280, align:'center', toolbar: '#barDemo'}">操作</th>
+		    </tr>
+		  </thead>
+		</table>
+		</div>
+		<script src="../js/layui/layui.js"></script>
+		<script src="../js/jquery-3.3.1.min.js"></script>
+		<script type="text/html" id="barDemo">
+			<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">改变状态</a>
+		  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+		  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+		</script>
+		<script>
+			layui.use(['element', 'layer', 'form', 'table'], function() {
+				var element = layui.element,
+					layer = layui.layer,
+					form = layui.form,
+					table = layui.table,
+					$ = layui.jquery;
+					$.ajax({
+						url:"../php/editfind.php",
+						type:"GET",
+						success: function(result){
+							let obj = JSON.parse(result);
+							for(let i=0;i<obj.count;i++){
+								$("#enterp").append("<option value="+obj[i].Id+">"+obj[i].Name+"</option>");
+							}
+							form.render('select');
+						}
+					});
+					$('#ugnew').on('click', function() {
+						layer.open({
+							type: 2,
+							title: '新建',
+							shadeClose: true, //点击遮罩关闭层
+							area: ['700px', '550px'],
+							content: 'baseData_fivnew.html'
+						});
+					});
+					form.on('submit(searchBtn)',function(data) {
+						table.reload('idTest',{
+							url: "../php/search.php",
+							where: {
+								table: 'ProductEntity',
+								data: JSON.stringify(data.field),
+							},
+						});
+						return false;
+					})
+					table.on('tool(demo)', function(obj) {
+						var data = obj.data;
+						if (obj.event === 'detail') {
+							$.ajax({
+							url: "../php/updateStatus.php",
+							type: "GET",
+							data: "id="+data.Id+"&table=ProductEntity&status="+data.Status,
+							success: function(result){
+								layer.msg(result);
+								table.reload('idTest') //重载表格数据
+							}
+						});
+						} else if (obj.event === 'del') {
+							layer.confirm('是否确定？', function(index){
+							$.ajax({
+									url: "../php/delete.php",
+									type: "GET",
+									data: "table=ProductEntity&id="+data.Id,
+									success: function(result){
+										layer.msg(result);
+									}
+								});
+							//关闭提示框
+							layer.close(index);
+							//重载表格数据
+							table.reload('idTest');
+						});
+						} else if (obj.event === 'edit') {
+							layer.open({
+								type: 2,
+								title: '编辑',
+								maxmin: true,
+								shadeClose: true, //点击遮罩关闭层
+								area: ['700px', '550px'],
+								content: 'baseData_fivedit.html',
+								success: function(layero,index){
+								var body = layer.getChildFrame('body',index);
+								body.find('#id').val(data.Id);
+								body.find('#code').val(data.Code);
+								body.find('#name').val(data.Name);
+								body.find('#GTIN').val(data.GTIN);
+								body.find('#AuthorizedNo').val(data.AuthorizedNo);
+								body.find('#enterprise').val(data.EnterpriseID);
+								body.find('#exp').val(data.ValidTime);
+								body.find('#spec').val(data.Spec);
+								body.find('#NDC').val(data.FormOfDrug);
+								body.find('#packunit').val(data.PackUnit);
+								body.find('#creator').val(data.Creator);
+								body.find('#createdate').val(data.CreateDate.date.slice(0,10));
+								form.render();
+							 }
+							});
+						}
+					});
+			});
+		</script>
+	</body>
+</html>

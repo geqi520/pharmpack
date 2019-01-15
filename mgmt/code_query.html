@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="../js/layui/css/layui.css" />
+	</head>
+	<body>
+		<form class="layui-form" action="">
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">代码：</label>
+					<div class="layui-input-block">
+						<input type="text" name="code" placeholder="请输入标题" autocomplete="off"  class="layui-input">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">父码：</label>
+					<div class="layui-input-block">
+						<input type="text" name="parent" placeholder="请输入标题" autocomplete="off"  class="layui-input">
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">工作：</label>
+					<div class="layui-input-inline">
+						<input type="text" name="parent"  placeholder="请输入标题" autocomplete="off"  class="layui-input">
+					</div>
+					<div class="layui-btn" id="ugnew">选择</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">产品：</label>
+					<div class="layui-input-inline">
+						<input type="text" name="product"  placeholder="请输入标题" autocomplete="off" id="demoReload" class="layui-input">
+					</div>
+					<div class="layui-btn" id="ugnew1">选择</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+			<div class="layui-inline">
+				<label class="layui-form-label">代码状态：</label>
+				<div class="layui-input-inline">
+					<select name="codestatus" lay-verify="required" lay-search="" id="demoReload">
+						<option value="">直接选择或搜索选择</option>
+						<option value="1">layer</option>
+						<option value="2">form</option>
+						<option value="3">layim</option>
+						<option value="4">element</option>
+						<option value="5">laytpl</option>
+						<option value="6">upload</option>
+					</select>
+				</div>
+			</div>
+			<div class="layui-inline">
+				<label class="layui-form-label">等级：</label>
+				<div class="layui-input-inline">
+					<select name="level" lay-verify="required" lay-search="" id="demoReload">
+						<option value="">直接选择或搜索选择</option>
+						<option value="1">layer</option>
+						<option value="2">form</option>
+						<option value="3">layim</option>
+						<option value="4">element</option>
+						<option value="5">laytpl</option>
+						<option value="6">upload</option>
+					</select>
+				</div>
+				<button class="layui-btn" id="searchBtn" data-type="reload">搜索</button>
+				<button class="layui-btn" data-type="reset">重置</button>
+			</div>
+			</div>
+		</form>
+		<div class="layui-card-body layui-admin-card-body">
+
+			<table class="layui-table" lay-data="{width: 900, height:500, url:'demo1.json', page:true, id:'idTest'}" lay-filter="demo">
+				<thead>
+					<tr>
+						<th lay-data="{field:'code', width:120}">代码</th>
+						<th lay-data="{field:'parent', width:120}">父码</th>
+						<th lay-data="{field:'level', width:120}">等级</th>
+						<th lay-data="{field:'batchNo', width:120}">作业数量</th>
+						<th lay-data="{field:'taskCode', width:120}">生产代码</th>
+						<th lay-data="{field:'productName', width:120}">产品名称</th>
+						<th lay-data="{field:'spec', width:180}">说明</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		<script src="../js/layui/layui.js"></script>
+		<script src="../js/jquery-3.3.1.min.js"></script>
+		<script>
+			layui.use(['element', 'layer', 'form', 'table'], function() {
+				var element = layui.element,
+					layer = layui.layer,
+					form = layui.form,
+					table = layui.table,
+					$ = layui.jquery;
+					$('#ugnew').on('click', function() {
+									layer.open({
+										type: 2,
+										title: '工作选择',
+										maxmin: true,
+										shadeClose: true, //点击遮罩关闭层
+										area: ['1100px', '600px'],
+										content: 'codequery_ugnew.html'
+									});
+								});
+								$('#ugnew1').on('click', function() {
+												layer.open({
+													type: 2,
+													title: '产品选择',
+													maxmin: true,
+													shadeClose: true, //点击遮罩关闭层
+													area: ['800px', '600px'],
+													content: 'codequery_ugnew1.html'
+												});
+											});
+											
+											$('#searchBtn').on('click',function(){
+												$.ajax({
+													url:'',
+													type:"GET",
+													data:"table=ProductEntity&id="+data.Id,
+													success:function(){
+														table.reload('idTest')
+													}
+												})
+											})
+							
+			});
+		</script>
+	</body>
+</html>

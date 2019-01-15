@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>用户操作</title>
+		<link rel="stylesheet" href="../js/layui/css/layui.css"/>
+	</head>
+	<body class="layui-layout-body">
+		<div class="layui-fluid">
+			<form class="layui-form">
+				<div class="layui-form-item">
+					<input name="id" id="id" class="layui-input" type="hidden" autocomplete="off"/>	
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">代码：</label>
+						<div class="layui-input-block">
+							<input type="text" id="code" name="code" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">产品：</label>
+						<div class="layui-input-block">
+							<input type="text" id="name" name="name" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">GTIN：</label>
+						<div class="layui-input-block">
+							<input type="text" id="GTIN" name="GTIN" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">批准号：</label>
+						<div class="layui-input-block">
+							<input type="text" id="AuthorizedNo" name="AuthorizedNo" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">设备：</label>
+						<input type="hidden" id="enterprise" autocomplete="off" class="layui-input">
+						<div class="layui-input-inline" style="width: 182px">
+							<select id="ep" name="modules" lay-search="">
+							</select>
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">EXP：</label>
+						<div class="layui-input-inline" style="width: 50px">
+							<input type="text" id="exp" name="exp" autocomplete="off" class="layui-input">
+						</div>
+						<div class="layui-input-inline" style="width: 60px">
+							<select id="time" name="date" lay-search="">
+								<option value="day">天</option>
+								<option value="month">月</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">重量：</label>
+						<div class="layui-input-block">
+							<input type="text" id="spec" name="spec" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">NDC码：</label>
+						<div class="layui-input-block">
+							<input type="text" id="NDC" name="NDC" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">药品码：</label>
+						<div class="layui-input-block">
+							<input type="text" id="packunit" name="packunit" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">打包单位：</label>
+						<div class="layui-input-block">
+							<input type="text" name="pack" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">创建者ID：</label>
+						<div class="layui-input-block">
+							<input type="text" id="creator" name="creator" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">创建时间：</label>
+						<div class="layui-input-block">
+							<input type="text" id="createdate" name="createdate" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<script src="../js/layui/layui.js"></script>
+		<script>
+			layui.use(['element','layer','form'],function(){
+				var element = layui.element
+				,layer = layui.layer
+				,form = layui.form
+				,$ = layui.jquery;
+				$.ajax({
+					url:"../php/editfind.php",
+					type:"GET",
+					success: function(result){
+						let obj = JSON.parse(result);
+						for(let i=0;i<obj.count;i++){
+							if(obj[i].Id==$("#enterprise").val()){
+								$("#ep").append("<option value="+obj[i].Id+" selected >"+obj[i].Name+"</option>");
+								continue;
+							}
+							$("#ep").append("<option value="+obj[i].Id+">"+obj[i].Name+"</option>");
+						}
+						form.render('select');
+					}
+				});
+				form.on('submit(formDemo)',function(data){
+					$.ajax({
+						url:"../php/updateData.php",
+						type:"POST",
+						data: "table=ProductEntity&data="+JSON.stringify(data.field),
+						success: function(result){
+							if(result){
+								layer.msg("成功",{icon: 1,time: 1000});
+								var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+								setTimeout(function(){
+									parent.layer.close(index); //再执行关闭
+									parent.location.reload();
+								},1000);
+							}
+							else{
+								layer.msg("失败",{icon: 2});
+								setTimeout(function(){layer.closeAll();},1000);
+							}
+						}
+					});
+					return false;
+				});
+			})
+		</script>		
+	</body>
+</html>
