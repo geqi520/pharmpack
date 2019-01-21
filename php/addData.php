@@ -32,12 +32,10 @@
 		case 'ProductEntity':
 			$sql="INSERT INTO ProductEntity (Code,Name,GTIN,AuthorizedNo,EnterpriseID,ValidTime,Spec,FormOfDrug,PackUnit,Remark2,Creator,CreateDate) VALUES ('$data->code','$data->name','$data->GTIN','$data->AuthorizedNo','$data->modules','$data->exp','$data->spec','$data->NDC','$data->packunit','$data->pack','$data->creator','$data->createdate')";
 			break;
-		case 'Account':
-			$sql="INSERT INTO Account (TrueName,LoginName,Password) VALUES ('$data->truename','$data->loginname','$data->password')";
-			break;
 		default:
 			return 0;
 	}
+//	echo $sql;
 	$result=$admindb->RunSQL($conn,$sql);
 	echo $result;
 ?>

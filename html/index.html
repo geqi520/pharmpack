@@ -7,7 +7,7 @@
 		<link  rel="stylesheet" href="../css/index.css" />
 		
 	</head>
-	<body class="layui-layout-body">
+	<body class="layui-layout-body" onload="checkStatus()">
 		<div class="layui-layout layui-layout-admin">
 			<!--头部-->
 			<div class="layui-header">
@@ -26,19 +26,13 @@
 				<!--头部右侧导航-->
 				<ul class="layui-nav layui-layout-right juli" lay-filter="rightmenu">
 					<li class="layui-nav-item">
-						<a href="javascript:;">
 							<i class="layui-icon layui-icon-user"></i>
-							心的远行
-						</a>
-						<dl class="layui-nav-child">
-							<dd><a href="javascript:;" lay-href="./userinfo.html"><i class="layui-icon layui-icon-form"></i>基本资料</a></dd>
-							<dd><a href="javascript:;" lay-href="./changepassword.html"><i class="layui-icon layui-icon-password"></i>修改密码</a></dd>
-						</dl>
+							<span id="admin"></span>
 					</li>
 					<li class="layui-nav-item">
 						<a href="javascript:;">锁屏<i class="layui-icon layui-icon-password"></i></a>
 					</li>
-					<li class="layui-nav-item"><a href="../login.html">退出</a></li>
+					<li class="layui-nav-item"><a href="../php/LoginOut.php">退出</a></li>
 				</ul>
 			</div>
 			<!--左侧-->
@@ -74,9 +68,10 @@
 						<li class="layui-nav-item">
 							<a href="javascript:;" title="设置"><i class="layui-icon layui-icon-set"></i><cite>系统管理</cite></a>
 							<dl class="layui-nav-child">
-								<dd><a href="javascript:;" lay-href="./changepassword.html">修改密码</a></dd>
+								<!-- <dd><a href="javascript:;" lay-href="./export.html">码导入</a></dd> -->
 								<dd><a href="javascript:;" lay-href="../system/ug.html">用户管理</a></dd>
 								<dd><a href="javascript:;" lay-href="../system/systemlog.html">系统日志</a></dd>
+								<dd><a href="javascript:;" lay-href="./changepassword.html">修改密码</a></dd>
 							</dl>
 						</li>
 					</ul>
@@ -102,6 +97,8 @@
 			<!--底部-->
 			<div class="layui-footer">©pharmapack </div>
 		</div>
+		<script src="../js/jquery-3.3.1.min.js"></script>
+		<script src="../js/checkStatus.js"></script>
 		<script src="../js/layui/layui.js"></script>
 		<script>
 			//iframe高度自适应

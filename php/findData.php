@@ -20,12 +20,18 @@
 			$sql="SELECT TOP $first *,ProductEntityStatus as Status FROM ProductEntity WHERE Id not in (SELECT TOP $secend Id FROM ProductEntity)";
 			break;
 		case 'Account':
-			$sql="SELECT TOP $first *,AccountStatus AS Status from Account,AccountRole,Role where Account.Id=AccountRole.AccountID and AccountRole.RoleID=Role.Id and Account.Id not in (SELECT TOP $secend Id FROM Account)";
+			$sql="SELECT TOP $first a.*,c.Name from Account a,AccountRole b,Role c where a.Id=b.AccountID and b.RoleID=c.Id and a.Id not in (SELECT TOP $secend Id FROM Account)";
+			break;
+		case 'BatchReport':
+			$sql="SELECT TOP $first Level,GTIN,Pending,Accepted,Rejected,Discarded,UnAggregated,Sample,Total from BatchReport WHERE Id not in (SELECT TOP $secend Id FROM BatchReport)";
+			break;
+		case 'TaskEntity':
+			$sql="SELECT TOP $first a.Id,a.Code,a.Status,a.TeamNo,a.Plant,a.LOT,b.Name as PackingLine,c.PkgRatio,d.Name,d.Spec FROM TaskEntity a,PackingLine b,PackingRule c,ProductEntity d WHERE a.PackingLineId=b.Id and a.PackingRuleId=c.Id and a.ProductId=d.Id and a.Id not in (SELECT TOP $secend Id FROM TaskEntity)";
 			break;
 		default:
 			return 0;
 	}
-//	echo $sql;
+	// echo $sql;
 	$row=$admindb->RunSQL($conn,$sql);
 	$arr=[
 		"code"   => "0",

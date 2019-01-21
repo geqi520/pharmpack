@@ -9,47 +9,27 @@
 		<form class="layui-form" action="">
 			<div class="layui-form-item">
 				<div class="layui-inline">
-					<label class="layui-form-label">包装线：</label>
+					<label class="layui-form-label">生产线：</label>
 					<div class="layui-input-inline">
-						<select name="modules" lay-verify="required" lay-search="" id="demoReload">
-							<option value="">直接选择或搜索选择</option>
-							<option value="1">layer</option>
-							<option value="2">form</option>
-							<option value="3">layim</option>
-							<option value="4">element</option>
-							<option value="5">laytpl</option>
-							<option value="6">upload</option>
-							<option value="7">laydate</option>
-							<option value="8">laypage</option>
-							<option value="9">flow</option>
-							<option value="10">util</option>
-							<option value="11">code</option>
-							<option value="12">tree</option>
-							<option value="13">layedit</option>
-							<option value="14">nav</option>
-							<option value="15">tab</option>
-							<option value="16">table</option>
-							<option value="17">select</option>
-							<option value="18">checkbox</option>
-							<option value="19">switch</option>
-							<option value="20">radio</option>
+						<select id="pkl" name="PackingLineId" lay-search="" id="demoReload">
+							<option value="">选择</option>
 						</select>
 					</div>
 				</div>
 				<div class="layui-inline">
 					<label class="layui-form-label">代码：</label>
 					<div class="layui-input-block">
-						<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" id="demoReload" class="layui-input">
+						<input type="text" name="a.Code" placeholder="please input code" autocomplete="off" id="demoReload" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-inline">
 					<label class="layui-form-label">LOT：</label>
 					<div class="layui-input-block">
-						<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" id="demoReload" class="layui-input">
+						<input type="text" name="LOT" placeholder="" autocomplete="off" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-inline">
-					 <button class="layui-btn" id="searchBtn" data-type="reload">搜索</button>
+					 <button class="layui-btn" lay-submit lay-filter="searchBtn">搜索</button>
 				</div>
 			</div>
 			<div class="layui-form-item">
@@ -58,18 +38,18 @@
 		</form>
 		<div class="layui-card-body layui-admin-card-body">
 
-			<table class="layui-table" lay-data="{width: 1000, height:500, url:'demo1.json', page:true, id:'idTest'}" lay-filter="demo">
+			<table class="layui-table" lay-data="{width: 1000, height:500, url:'../php/findData.php',where:{table:'TaskEntity'}, page:true, id:'idTest'}" lay-filter="demo">
 				<thead>
 					<tr>
-						<th lay-data="{field:'packingLine', width:80}">包装线</th>
-						<th lay-data="{field:'taskCode', width:100}">生产代码</th>
-						<th lay-data="{field:'batchNo', width:100}">作业数量</th>
-						<th lay-data="{field:'plant', width:80}">设备</th>
-						<th lay-data="{field:'groupCode', width:110}">分组代码</th>
-						<th lay-data="{field:'productName', width:100}">生产名称</th>
-						<th lay-data="{field:'spec', width:80}">说明</th>
-						<th lay-data="{field:'packingRule', width:100}">包装规则</th>
-						<th lay-data="{field:'status', width:80}">状态</th>
+						<th lay-data="{field:'PackingLine', width:80}">包装线</th>
+						<th lay-data="{field:'Code', width:100}">生产代码</th>
+						<th lay-data="{field:'LOT', width:100}">Batch No.</th>
+						<th lay-data="{field:'Plant', width:80}">设备</th>
+						<th lay-data="{field:'TeamNo', width:110}">分组代码</th>
+						<th lay-data="{field:'Name', width:100}">生产名称</th>
+						<th lay-data="{field:'Spec', width:80}">说明</th>
+						<th lay-data="{field:'PkgRatio', width:100}">包装规则</th>
+						<th lay-data="{field:'Status', width:80}">状态</th>
 						<th lay-data="{field:'operate', width:170,  align:'center', toolbar: '#barDemo'}">操作</th>
 					</tr>
 				</thead>
@@ -88,47 +68,73 @@
 					form = layui.form,
 					table = layui.table,
 					$ = layui.jquery;
+					$.ajax({
+						url: "../php/editfind.php",
+						type: "GET",
+						data: "table=PackingLine",
+						success: function(result){
+							let obj = JSON.parse(result);
+							for(let i=0;i<obj.count;i++){
+								$("#pkl").append("<option value="+obj[i].Id+">"+obj[i].Name+"</option>");
+							}
+							form.render('select');
+						}
+					});
 					$('#ugnew').on('click', function() {
-									layer.open({
-										type: 2,
-										title: '新建',
-										maxmin: true,
-										shadeClose: true, //点击遮罩关闭层
-										area: ['800px', '500px'],
-										content: 'task_mgmtnew.html'
-									});
-								});
-								table.on('tool(demo)', function(obj) {
-									var data = obj.data;
-									if (obj.event === 'detail') {
-										layer.msg('ID：' + data.id + ' 的查看操作');
-									} else if (obj.event === 'del') {
-										layer.confirm('真的删除行么', function(index) {
-											obj.del();
-											layer.close(index);
-										});
-									} else if (obj.event === 'edit') {
-										layer.open({
-											type: 2,
-											title: '编辑',
-											maxmin: true,
-											shadeClose: true, //点击遮罩关闭层
-											area: ['600px', '500px'],
-											content: 'ugnew.html'
-										});
-									}
-								});
-								
-								$('#searchBtn').on('click',function(){
-									$.ajax({
-										url:'',
-										type:"GET",
-										data:"table=ProductEntity&id="+data.Id,
-										success:function(){
-											table.reload('idTest')
-										}
-									})
-								})
+						layer.open({
+							type: 2,
+							title: '新建',
+							maxmin: true,
+							shadeClose: true, //点击遮罩关闭层
+							area: ['800px', '500px'],
+							content: 'task_mgmtnew.html'
+						});
+					});
+					table.on('tool(demo)', function(obj) {
+						var data = obj.data;
+						if (obj.event === 'del') {
+						layer.confirm('是否确定？', function(index){
+							$.ajax({
+							url: "../php/delete.php",
+							type: "GET",
+							data: "table=TaskEntity&id="+data.Id,
+							success: function(result){
+								layer.msg(result);
+							}
+							});
+							//关闭提示框
+							layer.close(index);
+							//重载表格数据
+							table.reload('idTest');
+						});
+						} else if (obj.event === 'edit') {
+							layer.open({
+								type: 2,
+								title: '编辑',
+								maxmin: true,
+								shadeClose: true, //点击遮罩关闭层
+								area: ['600px', '500px'],
+								content: 'ugnew.html',
+								success: function(layero,index){
+								var body = layer.getChildFrame('body',index);
+								body.find('#id').val(data.Id);
+								body.find('#tn').val(data.TrueName);
+								body.find('#ln').val(data.LoginName);
+								form.render();
+							}
+							});
+						}
+					});
+					
+				form.on('submit(searchBtn)',function(data) {
+					table.reload('idTest',{
+						url: "../php/search.php",
+						where: {
+							data: JSON.stringify(data.field),
+						},
+					});
+					return false;
+				})
 			});
 		</script>
 	</body>

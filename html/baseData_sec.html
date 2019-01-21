@@ -17,16 +17,16 @@
 					</div>
 				</form>
 					 
-				<table class="layui-table" lay-data="{width:950, height:500, url:'../php/findData.php',where:{table: 'PackingRule'}, page:true, id:'idTest'}" lay-filter="demo">
+				<table class="layui-table" lay-data="{width:910, height:500, url:'../php/findData.php',where:{table: 'PackingRule'}, page:true, id:'idTest'}" lay-filter="demo">
 				  <thead>
 					<tr>
 					 <th lay-data="{field:'Code', width:80}">编号</th>
 								<th lay-data="{field:'Name', width:80}">名称</th>
-								<th lay-data="{field:'GTIN', width:80}">GTIN</th>
-								<th lay-data="{field:'Level', width:80}">包装等级</th>
+								<th lay-data="{field:'GTIN', width:160}">GTIN</th>
+								<th lay-data="{field:'Level', width:160}">包装等级</th>
 								<th lay-data="{field:'Ratio', width:160}">包装比例</th>
 								<th lay-data="{field:'Status', width:80, sort: true}">状态</th>
-								<th lay-data="{width:178, align:'center', toolbar: '#barDemo'}"></th>
+								<th lay-data="{width:190, align:'center', toolbar: '#barDemo'}">操作</th>
 					</tr>
 				  </thead>
 				</table>

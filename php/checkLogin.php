@@ -1,14 +1,15 @@
 <?php
-	$serverName="NPA25G8GSPJ9VBP\SQLFIRST";
-	$connectionInfo=array("Database"=>"Manage","UID"=>"admin","PWD"=>"123456");
+session_start();
+	$serverName="NPA25G8GSPJ9VBP\SQLFIRST";				//sql server数据库服务器名称（地址）
+	$connectionInfo=array("Database"=>"ph1","UID"=>"admin","PWD"=>"123456");	//数据库名，用户名，密码
 	$conn=sqlsrv_connect($serverName,$connectionInfo);
 	$username=$_POST["username"];
-	$password=$_POST["password"];
+	$password=md5($_POST["password"]);
 	if(!$conn){
 		echo "error";
 		die(print_r(sqlsrv_errors(),true));
 	}
-	$sql="SELECT * FROM UserTable WHERE username='$username' and password='$password'";
+	$sql="SELECT * FROM Account WHERE LoginName='$username' and Password='$password' and AccountStatus = 1";
 	$result=sqlsrv_query($conn,$sql);
 	if($result===false){
 		echo "error";
@@ -22,6 +23,12 @@
 		echo "</script>";
 	}
 	else{
+		$data = sqlsrv_fetch_array($result,SQLSRV_FETCH_ASSOC);
+		$admin = [
+			'id'	=>	$data['Id'],
+			'name'	=>	$data['TrueName']
+		];
+		$_SESSION['admin'] = $admin;
 		echo "<script>";
 		echo "window.location.href='../html';";
 		echo "</script>";

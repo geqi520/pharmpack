@@ -57,12 +57,12 @@
 		    <tr>
 		      <th lay-data="{field:'Code', width:110, sort: true, fixed: true}">生产代码</th>
 		      <th lay-data="{field:'Name', width:110}">生产名称</th>
-		      <th lay-data="{field:'GTIN', width:80}">GTIN</th>
+		      <th lay-data="{field:'GTIN', width:140}">GTIN</th>
 		      <th lay-data="{field:'AuthorizedNo', width:110}">批准号</th>
 		      <th lay-data="{field:'Spec', width:110}">重量</th>
 		      <th lay-data="{field:'PackUnit', width:110}">商品码</th>
 		      <th lay-data="{field:'Status', width:80}">状态</th>
-			  <th lay-data="{fixed: 'right', width:280, align:'center', toolbar: '#barDemo'}">操作</th>
+			  <th lay-data="{fixed: 'right', width:220, align:'center', toolbar: '#barDemo'}">操作</th>
 		    </tr>
 		  </thead>
 		</table>
@@ -82,8 +82,9 @@
 					table = layui.table,
 					$ = layui.jquery;
 					$.ajax({
-						url:"../php/editfind.php",
-						type:"GET",
+						url: "../php/editfind.php",
+						type: "GET",
+						data: "table=Enterprise",
 						success: function(result){
 							let obj = JSON.parse(result);
 							for(let i=0;i<obj.count;i++){
@@ -105,7 +106,6 @@
 						table.reload('idTest',{
 							url: "../php/search.php",
 							where: {
-								table: 'ProductEntity',
 								data: JSON.stringify(data.field),
 							},
 						});

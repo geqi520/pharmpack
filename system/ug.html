@@ -31,15 +31,14 @@
 					</div>
 				</form>
 				<div class="layui-card-body layui-admin-card-body">
-					<table class="layui-table" lay-data="{width: 1000, height:500,url:'../php/findData.php',where:{table:'Account'}, page:true, id:'idTest'}" lay-filter="demo">
+					<table class="layui-table" lay-data="{width: 740, height:500,url:'../php/findData.php',where:{table:'Account'}, page:true, id:'idTest'}" lay-filter="demo">
 						<thead>
 							<tr>
-								<th lay-data="{field:'TrueName', width:80}">用户名</th>
-								<th lay-data="{field:'LoginName', width:80, sort: true}">登录名</th>
+								<th lay-data="{field:'TrueName', width:160}">用户名</th>
+								<th lay-data="{field:'LoginName', width:160, sort: true}">登录名</th>
 								<th lay-data="{field:'AccountStatus', width:80}">状态</th>
 								<th lay-data="{field:'Name', width:160}">角色</th>
-								<th lay-data="{field:'sign', width:160}">操作</th>
-								<th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}">操作</th>
+								<th lay-data="{fixed: 'right', width:180, align:'center', toolbar: '#barDemo'}">操作</th>
 							</tr>
 						</thead>
 					</table>
@@ -48,7 +47,7 @@
 		</div>
 		<script src="../js/layui/layui.js"></script>
 		<script type="text/html" id="barDemo">
-			<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+			<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">更改状态</a>
   <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
@@ -76,7 +75,7 @@
 					$.ajax({
 							url: "../php/updateStatus.php",
 							type: "GET",
-							data: "id="+data.Id+"&table=Account&status="+data.Status,
+							data: "id="+data.Id+"&table=Account&status="+data.AccountStatus,
 							success: function(result){
 								layer.msg(result);
 								table.reload('idTest') //重载表格数据
@@ -104,7 +103,7 @@
 						maxmin: true,
 						shadeClose: true, //点击遮罩关闭层
 						area: ['600px', '500px'],
-						content: 'ugnew.html',
+						content: 'ugedit.html',
 						success: function(layero,index){
 							var body = layer.getChildFrame('body',index);
 							body.find('#id').val(data.Id);

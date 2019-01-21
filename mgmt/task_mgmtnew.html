@@ -14,69 +14,32 @@
 					<div class="layui-inline">
 						<label class="layui-form-label">包装线：</label>
 						<div class="layui-input-inline">
-							<select name="packingLine" lay-search="">
-								<option value="1">layer</option>
-								<option value="2">form</option>
-								<option value="3">layim</option>
-								<option value="4">element</option>
-								<option value="5">laytpl</option>
-								<option value="6">upload</option>
-								<option value="7">laydate</option>
-								<option value="8">laypage</option>
-								<option value="9">flow</option>
-								<option value="10">util</option>
-								<option value="11">code</option>
-								<option value="12">tree</option>
-								<option value="13">layedit</option>
-								<option value="14">nav</option>
-								<option value="15">tab</option>
-								<option value="16">table</option>
-								<option value="17">select</option>
-								<option value="18">checkbox</option>
-								<option value="19">switch</option>
-								<option value="20">radio</option>
+							<select id="pkl" name="PackingLineId" lay-search="">
+								<option value="">请选择</option>
 							</select>
 						</div>
 					</div>
 					<div class="layui-inline">
 						<label class="layui-form-label">产品：</label>
 						<div class="layui-input-inline">
-							<input type="product" name="title" autocomplete="off" class="layui-input">
+							<select id="pd" name="ProductId" lay-search="">
+								<option value="">请选择</option>
+							</select>
 						</div>
-						<div class="layui-btn" id="ugnew">选择</div>
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<div class="layui-inline">
 						<label class="layui-form-label">工作代码：</label>
 						<div class="layui-input-block">
-							<input type="text" name="taskCode" autocomplete="off" class="layui-input">
+							<input type="text" name="Code" autocomplete="off" class="layui-input">
 						</div>
 					</div>
 					<div class="layui-inline">
 						<label class="layui-form-label">包装规则：</label>
 						<div class="layui-input-inline">
-							<select name="packingRule" lay-search="">
-								<option value="1">layer</option>
-								<option value="2">form</option>
-								<option value="3">layim</option>
-								<option value="4">element</option>
-								<option value="5">laytpl</option>
-								<option value="6">upload</option>
-								<option value="7">laydate</option>
-								<option value="8">laypage</option>
-								<option value="9">flow</option>
-								<option value="10">util</option>
-								<option value="11">code</option>
-								<option value="12">tree</option>
-								<option value="13">layedit</option>
-								<option value="14">nav</option>
-								<option value="15">tab</option>
-								<option value="16">table</option>
-								<option value="17">select</option>
-								<option value="18">checkbox</option>
-								<option value="19">switch</option>
-								<option value="20">radio</option>
+							<select id="pkr" name="packingRuleId" lay-search="">
+								<option value="">请选择</option>
 							</select>
 						</div>
 					</div>
@@ -91,7 +54,7 @@
 					<div class="layui-inline">
 						<label class="layui-form-label">任务订单：</label>
 						<div class="layui-input-block">
-							<input type="text" name="taskOrder" autocomplete="off" class="layui-input">
+							<input type="text" name="Plant" autocomplete="off" class="layui-input">
 						</div>
 					</div>
 				</div>
@@ -99,13 +62,13 @@
 					<div class="layui-inline">
 						<label class="layui-form-label">生产日期：</label>
 						<div class="layui-input-block">
-							<input type="text" name="MFG" autocomplete="off" class="layui-input">
+							<input type="text" disabled="disabled" autocomplete="off" class="layui-input">
 						</div>
 					</div>
 					<div class="layui-inline">
 						<label class="layui-form-label">截止日期：</label>
 						<div class="layui-input-block">
-							<input type="text" name="EXP" autocomplete="off" class="layui-input">
+							<input type="text" autocomplete="off" class="layui-input">
 						</div>
 					</div>
 				</div>
@@ -113,13 +76,7 @@
 					<div class="layui-inline">
 						<label class="layui-form-label">团队编号：</label>
 						<div class="layui-input-block">
-							<input type="text" name="teamNo" autocomplete="off" class="layui-input">
-						</div>
-					</div>
-					<div class="layui-inline">
-						<label class="layui-form-label">复查：</label>
-						<div class="layui-input-block">
-							<input type="checkbox" name="review" lay-skin="primary" title="复查" checked="">
+							<input type="text" name="TeamNo" autocomplete="off" class="layui-input">
 						</div>
 					</div>
 				</div>
@@ -139,16 +96,39 @@
 					layer = layui.layer,
 					form = layui.form,
 					$ = layui.jquery;
-					$('#ugnew').on('click', function() {
-									layer.open({
-										type: 2,
-										title: '新建',
-										maxmin: true,
-										shadeClose: true, //点击遮罩关闭层
-										area: ['750px', '400px'],
-										content: 'new_select.html'
-									});
-								});
+					$.ajax({
+						url:"../php/editfind.php",
+						type:"GET",
+						success: function(result){
+							let obj = JSON.parse(result);
+							for(let i=0;i<obj.count;i++){
+								$("#enterp").append("<option value="+obj[i].Id+">"+obj[i].Name+"</option>");
+							}
+							form.render('select');
+						}
+					});
+					form.on('submit(formDemo)',function(data) {
+						$.ajax({
+							url:"../php/addData.php",
+							type:"POST",
+							data: "table=Task&data="+JSON.stringify(data.field),
+							success: function(result){
+								if(result){
+									layer.msg("成功",{icon: 1,time: 1000});
+									var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+									setTimeout(function(){
+										parent.layer.close(index); //再执行关闭
+										parent.location.reload();
+									},1000);
+								}
+								else{
+									layer.msg("失败",{icon: 2});
+									setTimeout(function(){layer.closeAll();},1000);
+								}
+							}
+						});
+						return false;
+					});
 			})
 		</script>
 	</body>
